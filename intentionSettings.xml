@@ -1,0 +1,6 @@
+<application>
+  <component name="IntentionManagerSettings">
+    <ignoreAction name="Java/Declaration/Generate missed test methods" />
+    <ignoreAction name="Other/Flip ','" />
+  </component>
+</application>
