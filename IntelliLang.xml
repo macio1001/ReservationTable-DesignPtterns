@@ -1,0 +1,12 @@
+<application>
+  <component name="LanguageInjectionConfiguration">
+    <injection language="AIDL" injector-id="xml">
+      <display-name>adaptive-icon</display-name>
+      <place><![CDATA[xmlTag().withLocalName(string().equalTo("adaptive-icon"))]]></place>
+    </injection>
+    <injection language="JAVA" injector-id="xml">
+      <display-name>android.support.constraint.ConstraintLayout</display-name>
+      <place><![CDATA[xmlTag().withLocalName(string().matches("android.support.constraint.ConstraintLayout"))]]></place>
+    </injection>
+  </component>
+</application>
