@@ -21,31 +21,31 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginDesignPatternsActivity extends AppCompatActivity {
 
-    EditText email,haslo;
+    EditText email, haslo;
     Button loguj;
-    TextView przypomnij,rejestruj,mail,password;
+    TextView przypomnij, rejestruj, mail, password;
     ImageView logo;
-    public String Email,Haslo;
+    public String Email, Haslo;
 
-    private static final String TAG="RezerwujActivity";
+    private static final String TAG = "RezerwujActivity";
     FirebaseAuth firebaseAuth;
 
-    Singleton singleton=Singleton.getInstance();
+    Singleton singleton = Singleton.getInstance();
 
     @Override
     protected void onStart() {
         super.onStart();
 
         FirebaseUser uzytkownik = firebaseAuth.getCurrentUser();
-        if(uzytkownik!=null) {
-            String email=uzytkownik.getEmail();
+        if (uzytkownik != null) {
+            String email = uzytkownik.getEmail();
             if (email.equals("maciej.oles@gmail.com")) {
-                Email=email;
+                Email = email;
                 singleton.przekazEmail(Email);
                 Intent intent = new Intent(getApplicationContext(), MenuKlientDesignPatternsActivity.class);
                 startActivity(intent);
             }
-            if(email.equals("reservationtable1@gmail.com")) {
+            if (email.equals("reservationtable1@gmail.com")) {
                 Intent intent = new Intent(getApplicationContext(), MenuRestauracjaDesignPatternsActivity.class);
                 startActivity(intent);
             }
@@ -57,22 +57,22 @@ public class LoginDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logindesignpatterns);
 
-        email=findViewById(R.id.emaileditText);
-        mail=findViewById(R.id.emailtextview);
-        haslo=findViewById(R.id.hasloeditText);
-        password=findViewById(R.id.haslotextView);
-        loguj=findViewById(R.id.zalogujbutton);
-        przypomnij=findViewById(R.id.przypomnijtextview);
-        rejestruj=findViewById(R.id.rejestrujtextView);
-        logo=findViewById(R.id.logoimageView);
+        email = findViewById(R.id.emaileditText);
+        mail = findViewById(R.id.emailtextview);
+        haslo = findViewById(R.id.hasloeditText);
+        password = findViewById(R.id.haslotextView);
+        loguj = findViewById(R.id.zalogujbutton);
+        przypomnij = findViewById(R.id.przypomnijtextview);
+        rejestruj = findViewById(R.id.rejestrujtextView);
+        logo = findViewById(R.id.logoimageView);
 
-        firebaseAuth= FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         loguj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Email=email.getText().toString();
-                Haslo=haslo.getText().toString();
+                Email = email.getText().toString();
+                Haslo = haslo.getText().toString();
                 if (!TextUtils.isEmpty(Email) && !TextUtils.isEmpty(Haslo)) {
                     firebaseAuth.signInWithEmailAndPassword(Email, Haslo)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -82,13 +82,10 @@ public class LoginDesignPatternsActivity extends AppCompatActivity {
                                         if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                                             if (Email.equals("maciej.oles@gmail.com")) {
                                                 singleton.przekazEmail(Email);
-                                                Intent intent=new Intent(LoginDesignPatternsActivity.this,MenuKlientDesignPatternsActivity.class);
-                                                //intent.putExtra("Email",Email);
+                                                Intent intent = new Intent(LoginDesignPatternsActivity.this, MenuKlientDesignPatternsActivity.class);
                                                 startActivity(intent);
-
-                                                //startActivity(new Intent(LoginDesignPatternsActivity.this, MenuKlientDesignPatternsActivity.class));
                                             }
-                                            if(Email.equals("reservationtable1@gmail.com")){
+                                            if (Email.equals("reservationtable1@gmail.com")) {
                                                 startActivity(new Intent(LoginDesignPatternsActivity.this, MenuRestauracjaDesignPatternsActivity.class));
                                             }
                                         } else {
@@ -108,15 +105,16 @@ public class LoginDesignPatternsActivity extends AppCompatActivity {
         przypomnij.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginDesignPatternsActivity.this,PrzypomnieniehaslaDesignPatternsActivty.class));
+                startActivity(new Intent(LoginDesignPatternsActivity.this, PrzypomnieniehaslaDesignPatternsActivty.class));
             }
         });
 
         rejestruj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginDesignPatternsActivity.this,RejestracjaDesignPatternsActivity.class));
+                startActivity(new Intent(LoginDesignPatternsActivity.this, RejestracjaDesignPatternsActivity.class));
             }
         });
     }
+}
 
