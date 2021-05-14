@@ -2,15 +2,15 @@ package com.example.reservationtabledesignpatterns;
 
 public class Singleton {
 
-    public String wybranadata;
-    public String wybranagodzina;
-    public String Email;
-    public int ilosc;
-    public int stolik;
-    public Boolean WylaczStolik1;
-    public Boolean WylaczStolik2;
-    public Boolean WylaczStolik4;
-    public Boolean WylaczStolik5;
+    private String wybranadata;
+    private String wybranagodzina;
+    private String Email;
+    private int ilosc;
+    private int stolik;
+    private Boolean WylaczStolik1;
+    private Boolean WylaczStolik2;
+    private Boolean WylaczStolik4;
+    private Boolean WylaczStolik5;
 
     private static Singleton instance=null;
     public static synchronized Singleton getInstance(){

@@ -28,7 +28,8 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
     private TextView wyborsotlika;
     private Button dalej;
 
-    public int stolik=0,ilosc1;
+    public Stolik stolik;
+    public int ilosc1;
     Boolean onoff1=false,onoff2=false,onoff3=false,onoff4=false,onoff5=false,onoff6=false;
     FirebaseFirestore firebaseFirestore;
     private static final String TAG="StolikiActivity";
@@ -250,22 +251,16 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         stolik1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InformacjeAbstrakt informacje;
-                informacje=new Informacje();
-                informacje=new Stoliknr1(informacje);
-                stolik=informacje.getNumer();
-                Toast.makeText(StolikiDesignPatternsActivity.this,informacje.getInformacja(),Toast.LENGTH_SHORT).show();
+                stolik=new Stolik(1);
+                Toast.makeText(StolikiDesignPatternsActivity.this,stolik.getInformacja(),Toast.LENGTH_SHORT).show();
             }
         });
 
         stolik2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InformacjeAbstrakt informacje;
-                informacje=new Informacje();
-                informacje=new Stoliknr1(informacje);
-                stolik=informacje.getNumer();
-                Toast.makeText(StolikiDesignPatternsActivity.this,informacje.getInformacja(),Toast.LENGTH_SHORT).show();
+                stolik=new Stolik(2);
+                Toast.makeText(StolikiDesignPatternsActivity.this,stolik.getInformacja(),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -273,54 +268,42 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         stolik3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InformacjeAbstrakt informacje;
-                informacje=new Informacje();
-                informacje=new Stoliknr1(informacje);
-                stolik=informacje.getNumer();
-                Toast.makeText(StolikiDesignPatternsActivity.this,informacje.getInformacja(),Toast.LENGTH_SHORT).show();
+                stolik=new Stolik(3);
+                Toast.makeText(StolikiDesignPatternsActivity.this,stolik.getInformacja(),Toast.LENGTH_SHORT).show();
             }
         });
 
         stolik4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InformacjeAbstrakt informacje;
-                informacje=new Informacje();
-                informacje=new Stoliknr1(informacje);
-                stolik=informacje.getNumer();
-                Toast.makeText(StolikiDesignPatternsActivity.this,informacje.getInformacja(),Toast.LENGTH_SHORT).show();
+                stolik=new Stolik(4);
+                Toast.makeText(StolikiDesignPatternsActivity.this,stolik.getInformacja(),Toast.LENGTH_SHORT).show();
             }
         });
 
         stolik5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InformacjeAbstrakt informacje;
-                informacje=new Informacje();
-                informacje=new Stoliknr1(informacje);
-                stolik=informacje.getNumer();
-                Toast.makeText(StolikiDesignPatternsActivity.this,informacje.getInformacja(),Toast.LENGTH_SHORT).show();
+                stolik=new Stolik(5);
+                Toast.makeText(StolikiDesignPatternsActivity.this,stolik.getInformacja(),Toast.LENGTH_SHORT).show();
             }
         });
 
         stolik6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InformacjeAbstrakt informacje;
-                informacje=new Informacje();
-                informacje=new Stoliknr1(informacje);
-                stolik=informacje.getNumer();
-                Toast.makeText(StolikiDesignPatternsActivity.this,informacje.getInformacja(),Toast.LENGTH_SHORT).show();
+                stolik=new Stolik(6);
+                Toast.makeText(StolikiDesignPatternsActivity.this,stolik.getInformacja(),Toast.LENGTH_SHORT).show();
             }
         });
 
         dalej.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(stolik==0){
+                if(stolik==null){
                     Toast.makeText(StolikiDesignPatternsActivity.this,"Nie wybrałes żadnego stolika!",Toast.LENGTH_SHORT).show();
                 }else {
-                    singleton.przekazsttolik(stolik);
+                    singleton.przekazsttolik(stolik.getNumer());
                     Intent intent = new Intent(StolikiDesignPatternsActivity.this, DaneOsoboweDesignPatternsActivity.class);
                     startActivity(intent);
                 }

@@ -15,7 +15,7 @@ public class HistoriaUserDesignPatternsAdapter extends RecyclerView.Adapter<Hist
     public List<RezerwacjaDesignPatterns> historiaUserList;
     public HistoriaUserDesignPatternsActivity historiaUserDesignPatternsActivity;
 
-    public HistoriaUserDesignPatternsAdapter(HistoriaUserDesignPatternsActivity historiaUserActivity,List<RezerwacjaDesignPatterns> historiaUserList){
+    public HistoriaUserDesignPatternsAdapter(HistoriaUserDesignPatternsActivity historiaUserDesignPatternsActivity,List<RezerwacjaDesignPatterns> historiaUserList){
         this.historiaUserDesignPatternsActivity=historiaUserDesignPatternsActivity;
         this.historiaUserList=historiaUserList;
     }

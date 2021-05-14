@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import javax.xml.parsers.FactoryConfigurationError;
+
 public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
 
     TextView daneosobowe,imie,nazwisko,email,telefon,iloscosob,godzina,data;
@@ -42,6 +45,8 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
     Button rezerwuj;
     CheckBox wyborgaleria;
     ImageView kodQR;
+    Boolean flaga=false;
+
 
     String Imie,Nazwisko,Email,Telefon,Ilosc;
     public FirebaseFirestore firebaseFirestore;
@@ -52,6 +57,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
     Bitmap bitmap;
     String Text,stolik1;
 
+
     String wybranagodzina2,wybranadata2,Email1;
     int stolik,ilosc2;
     Singleton singleton=Singleton.getInstance();
@@ -61,48 +67,57 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.daneosobowedesignpatterns);
 
-        daneosobowe=findViewById(R.id.naglowektextView);
-        imie=findViewById(R.id.imietextView);
-        imieedit=findViewById(R.id.imieeditText);
-        nazwisko=findViewById(R.id.nazwiskotextView);
-        nazwiskoedit=findViewById(R.id.nazwiskoeditText);
-        email=findViewById(R.id.emailtextView);
-        emailedit=findViewById(R.id.emaileditText);
-        telefon=findViewById(R.id.telefontextView);
-        telefonedit=findViewById(R.id.numereditText);
-        rezerwuj=findViewById(R.id.rezerwujbutton);
-        wyborgaleria=findViewById(R.id.dowloadtogallery);
-        iloscosob=findViewById(R.id.iloscosobtextView);
-        iloscosobedit=findViewById(R.id.iloscosobeditText);
-        godzina=findViewById(R.id.godzinatextView);
-        godzinaedit=findViewById(R.id.godzinaeditText);
-        data=findViewById(R.id.datatextView);
-        dataedit=findViewById(R.id.dataeditText);
-        kodQR=findViewById(R.id.imageView8);
-        Intent intent1=getIntent();
+        daneosobowe = findViewById(R.id.naglowektextView);
+        imie = findViewById(R.id.imietextView);
+        imieedit = findViewById(R.id.imieeditText);
+        nazwisko = findViewById(R.id.nazwiskotextView);
+        nazwiskoedit = findViewById(R.id.nazwiskoeditText);
+        email = findViewById(R.id.emailtextView);
+        emailedit = findViewById(R.id.emaileditText);
+        telefon = findViewById(R.id.telefontextView);
+        telefonedit = findViewById(R.id.numereditText);
+        rezerwuj = findViewById(R.id.rezerwujbutton);
+        wyborgaleria = findViewById(R.id.dowloadtogallery);
+        iloscosob = findViewById(R.id.iloscosobtextView);
+        iloscosobedit = findViewById(R.id.iloscosobeditText);
+        godzina = findViewById(R.id.godzinatextView);
+        godzinaedit = findViewById(R.id.godzinaeditText);
+        data = findViewById(R.id.datatextView);
+        dataedit = findViewById(R.id.dataeditText);
+        kodQR = findViewById(R.id.imageView8);
 
-        wybranadata2=singleton.pokazdaterezerwacji();
-        wybranagodzina2=singleton.pokazgodzinerezerwacji();
-        Email1=singleton.pokazEmail();
-        stolik=singleton.pokazstolik();
-        ilosc2=singleton.pokazilosc();
+        onChange onChange=new onChange();
 
-        Ilosc=String.valueOf(ilosc2);
+        wybranadata2 = singleton.pokazdaterezerwacji();
+        wybranagodzina2 = singleton.pokazgodzinerezerwacji();
+        Email1 = singleton.pokazEmail();
+        stolik = singleton.pokazstolik();
+        ilosc2 = singleton.pokazilosc();
 
-        stolik1=String.valueOf(stolik);
-        String podanyemail=Email1;
+        Ilosc = String.valueOf(ilosc2);
+
+        stolik1 = String.valueOf(stolik);
+        String podanyemail = Email1;
 
         iloscosobedit.setText(Ilosc);
         godzinaedit.setText(wybranagodzina2);
         dataedit.setText(wybranadata2);
         emailedit.setText(podanyemail);
 
-        Map<String,Object> daneosobowe=new HashMap<>();
-        firebaseFirestore= FirebaseFirestore.getInstance();
-        firebaseStorage= FirebaseStorage.getInstance();
-        storageReference=firebaseStorage.getReference();
+        Map<String, Object> daneosobowe = new HashMap<>();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference();
 
 
+        wyborgaleria.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean icchecked) {
+                if(wyborgaleria.isChecked()){
+                    onChange.zmiana(flaga);
+                }
+            }
+        });
         rezerwuj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +135,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                     Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Nie wprowadziłeś swojego numeru telefonu!", Toast.LENGTH_SHORT).show();
                 }
 
-                Text = "Imię i Nazwisko:"+Imie + " " + Nazwisko + " Email:" + Email + " Telefon:" + Telefon + " Stolik:" + stolik + " Dsta:" + wybranadata2 + " Godzina:" + wybranagodzina2 + " Ilość osób:"  + ilosc2;
+                Text = "Imię i Nazwisko:" + Imie + " " + Nazwisko + " Email:" + Email + " Telefon:" + Telefon + " Stolik:" + stolik + " Dsta:" + wybranadata2 + " Godzina:" + wybranagodzina2 + " Ilość osób:" + ilosc2;
 
                 daneosobowe.put("Imie", Imie);
                 daneosobowe.put("Nazwisko", Nazwisko);
@@ -130,86 +145,21 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                 daneosobowe.put("Godzina", wybranagodzina2);
                 daneosobowe.put("Stolik", stolik1);
                 daneosobowe.put("Ilosc", Ilosc);
-                daneosobowe.put("Kod",Text);
-                if (stolik == 1) {
-                    firebaseFirestore.collection("Stoliknr1").add(daneosobowe)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+                daneosobowe.put("Kod", Text);
+
+                firebaseFirestore.collection("Stoliknr" + stolik).add(daneosobowe)
+                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                        }
+                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.w(TAG, "Error writting document", e);
                         }
                     });
-                } else if (stolik == 2) {
-                    firebaseFirestore.collection("Stoliknr2").add(daneosobowe)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writting document", e);
-                        }
-                    });
-                } else if (stolik == 3) {
-                    firebaseFirestore.collection("Stoliknr3").add(daneosobowe)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writting document", e);
-                        }
-                    });
-                } else if (stolik == 4) {
-                    firebaseFirestore.collection("Stoliknr4").add(daneosobowe)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writting document", e);
-                        }
-                    });
-                } else if (stolik == 5) {
-                    firebaseFirestore.collection("Stoliknr5").add(daneosobowe)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writting document", e);
-                        }
-                    });
-                } else if (stolik == 6) {
-                    firebaseFirestore.collection("Stoliknr6").add(daneosobowe)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error writting document", e);
-                        }
-                    });
-                }
+
 
                 try {
                     bitmap = textToImageEncode(Text);
@@ -218,14 +168,19 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if (wyborgaleria.isChecked()) {
-                    MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "code_scanner", null);
-                    Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Zapisane w galerii", Toast.LENGTH_SHORT).show();
+                if(flaga==true){
+                    aktualizujobserver();
                 }
+                Log.d(TAG,"Lalaa: "+ flaga);
 
                 uploadImage();
             }
         });
+
+    }
+    private void aktualizujobserver(){
+        MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "code_scanner", null);
+        Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Zapisane w galerii", Toast.LENGTH_SHORT).show();
     }
 
     private Bitmap textToImageEncode(String value) throws WriterException {
@@ -233,7 +188,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
         Hashtable hints=new Hashtable();
         hints.put(EncodeHintType.CHARACTER_SET,"UTF-8");
         try {
-            bitMatrix=new MultiFormatWriter().encode(value, BarcodeFormat.DATA_MATRIX.QR_CODE, QRCodeWidth,QRCodeWidth,hints);
+            bitMatrix=new MultiFormatWriter().encode(value, BarcodeFormat.QR_CODE, QRCodeWidth,QRCodeWidth,hints);
         }catch (IllegalArgumentException e){
             return null;
         }
