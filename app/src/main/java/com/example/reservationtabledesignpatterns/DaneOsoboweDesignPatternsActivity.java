@@ -171,7 +171,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                 if(flaga==true){
                     aktualizujobserver();
                 }
-                Log.d(TAG,"Lalaa: "+ flaga);
+
 
                 uploadImage();
             }
