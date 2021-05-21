@@ -21,10 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LogowanieDesignPatternsActivity extends AppCompatActivity {
 
-    EditText editEmail, editHaslo;
+    EditText editEmail,editHaslo;
     Button buttonLoguj;
     TextView textPrzypomnij, textRejestruj, textMail, textHaslo;
-    ImageView imagelogo;
 
     FirebaseAuth firebaseAuth;
 
@@ -55,13 +54,10 @@ public class LogowanieDesignPatternsActivity extends AppCompatActivity {
         setContentView(R.layout.logindesignpatterns);
 
         editEmail = findViewById(R.id.emaileditText);
-        textMail = findViewById(R.id.emailtextview);
         editHaslo = findViewById(R.id.hasloeditText);
-        textHaslo = findViewById(R.id.haslotextView);
         buttonLoguj = findViewById(R.id.zalogujbutton);
         textPrzypomnij = findViewById(R.id.przypomnijtextview);
         textRejestruj = findViewById(R.id.rejestrujtextView);
-        imagelogo = findViewById(R.id.logoimageView);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

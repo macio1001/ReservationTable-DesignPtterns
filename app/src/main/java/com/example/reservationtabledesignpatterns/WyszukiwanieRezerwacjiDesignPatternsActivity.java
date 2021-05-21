@@ -24,7 +24,6 @@ import java.util.List;
 public class WyszukiwanieRezerwacjiDesignPatternsActivity extends AppCompatActivity {
 
     private static final String TAG="WyszukiwanieActivity";
-    TextView textWyszukiwanie;
     EditText editKod;
     Button buttonSzukaj;
     RecyclerView recyclerviewRezerwacja;
@@ -39,7 +38,6 @@ public class WyszukiwanieRezerwacjiDesignPatternsActivity extends AppCompatActiv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wyszukiwanierezerwacjidesignpatterns);
 
-        textWyszukiwanie=findViewById(R.id.wyszukiwanietextView);
         editKod=findViewById(R.id.kodeditText);
         buttonSzukaj=findViewById(R.id.szukajbutton);
 

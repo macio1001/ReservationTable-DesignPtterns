@@ -18,9 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RejestracjaDesignPatternsActivity extends AppCompatActivity {
-
-    ImageView imageLogo;
-    TextView textMail,textHaslo,textDrugieHaslo;
     EditText editEmail,editHaslo,editDrugieHaslo;
     Button buttonRejestruj;
 
@@ -31,10 +28,6 @@ public class RejestracjaDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rejestracjadesignpatterns);
 
-        imageLogo=findViewById(R.id.logoimageView);
-        textMail=findViewById(R.id.emailtextView);
-        textHaslo=findViewById(R.id.haslotextView);
-        textDrugieHaslo=findViewById(R.id.powtorzhaslotextView);
         editEmail=findViewById(R.id.emaileditText);
         editHaslo=findViewById(R.id.hasloeditText);
         editDrugieHaslo=findViewById(R.id.powtorzhasloeditText);
@@ -66,6 +59,7 @@ public class RejestracjaDesignPatternsActivity extends AppCompatActivity {
                                                             Toast.LENGTH_LONG).show();
                                                     editEmail.setText("");
                                                     editHaslo.setText("");
+                                                    editDrugieHaslo.setText("");
                                                     startActivity(new Intent(RejestracjaDesignPatternsActivity.this, LogowanieDesignPatternsActivity.class));
                                                 } else {
                                                     Toast.makeText(RejestracjaDesignPatternsActivity.this, task.getException().getMessage(),

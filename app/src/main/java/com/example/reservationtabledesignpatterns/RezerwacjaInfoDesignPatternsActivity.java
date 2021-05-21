@@ -31,7 +31,6 @@ public class RezerwacjaInfoDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rezerwacjainfodesignpatterns);
 
-        imageLogoInfo=findViewById(R.id.logoinfoimageview);
         textImieInfo=findViewById(R.id.imieInfoTextVIew);
         textNazwiskoInfo=findViewById(R.id.nazwiskoInfoTextView);
         textEmailInfo=findViewById(R.id.emailInfoTextView);

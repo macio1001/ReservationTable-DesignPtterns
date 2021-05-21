@@ -47,8 +47,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
     Bitmap bitmap;
 
     Boolean flaga;
-    String wybranaData,wybranaGodzina,emailUzytkownika,stolik,daneRezerwacji,ilosc,email;
-    int wybranyStolik,wybranaIloscOsob;
+    String stolik,daneRezerwacji,ilosc,email;
 
     FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage;
@@ -74,11 +73,11 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
         checkZapiszwGalerii= findViewById(R.id.dowloadtogallery);
         imageKodQR = findViewById(R.id.imageView8);
 
-        wybranaData = singleton.pokazdaterezerwacji();
-        wybranaGodzina = singleton.pokazgodzinerezerwacji();
-        emailUzytkownika = singleton.pokazEmail();
-        wybranyStolik = singleton.pokazstolik();
-        wybranaIloscOsob = singleton.pokazilosc();
+        String wybranaData = singleton.pokazdaterezerwacji();
+        String wybranaGodzina = singleton.pokazgodzinerezerwacji();
+        String emailUzytkownika = singleton.pokazEmail();
+        int wybranyStolik = singleton.pokazstolik();
+        int wybranaIloscOsob = singleton.pokazilosc();
 
         stolik = String.valueOf(wybranyStolik);
         ilosc = String.valueOf(wybranaIloscOsob);

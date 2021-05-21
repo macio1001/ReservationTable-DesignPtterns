@@ -22,7 +22,6 @@ public class PrzypomnienieHaslaDesignPatternsActivty extends AppCompatActivity {
     EditText editEmail;
     TextView textPrzypomnienie;
     Button buttonPrzypomnij;
-    ImageView imageLogo;
 
     FirebaseAuth firebaseAuth;
 
@@ -31,7 +30,6 @@ public class PrzypomnienieHaslaDesignPatternsActivty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.przypomnieniehasladesignpatterns);
 
-        imageLogo=findViewById(R.id.logoimageView);
         editEmail=findViewById(R.id.emaileditText);
         textPrzypomnienie=findViewById(R.id.przypomnijtextview);
         buttonPrzypomnij=findViewById(R.id.przypomnijbutton);

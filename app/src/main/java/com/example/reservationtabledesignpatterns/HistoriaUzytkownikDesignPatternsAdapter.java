@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoriaUzytkownikDesignPatternsAdapter extends RecyclerView.Adapter<HistoriaUzytkownikDesignPatternsAdapter.ViewHolder>{
-    public List<RezerwacjaDesignPatterns> historiaUserList;
+    public List<RezerwacjaDesignPatterns> historiaUzytkownikList;
     public HistoriaUzytkownikDesignPatternsActivity historiaUzytkownikDesignPatternsActivity;
 
     public HistoriaUzytkownikDesignPatternsAdapter(HistoriaUzytkownikDesignPatternsActivity historiaUserDesignPatternsActivity,List<RezerwacjaDesignPatterns> historiaUserList){
         this.historiaUzytkownikDesignPatternsActivity=historiaUserDesignPatternsActivity;
-        this.historiaUserList=historiaUserList;
+        this.historiaUzytkownikList=historiaUserList;
     }
 
     @NonNull
@@ -29,15 +29,15 @@ public class HistoriaUzytkownikDesignPatternsAdapter extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(@NonNull HistoriaUzytkownikDesignPatternsAdapter.ViewHolder holder, int position) {
-        holder.imieText.setText(historiaUserList.get(position).getImie());
-        holder.nazwiskotext.setText(historiaUserList.get(position).getNazwisko());
-        holder.stolikText.setText(historiaUserList.get(position).getStolik());
-        holder.godzinaText.setText(historiaUserList.get(position).getGodzina());
+        holder.imieText.setText(historiaUzytkownikList.get(position).getImie());
+        holder.nazwiskotext.setText(historiaUzytkownikList.get(position).getNazwisko());
+        holder.stolikText.setText(historiaUzytkownikList.get(position).getStolik());
+        holder.godzinaText.setText(historiaUzytkownikList.get(position).getGodzina());
     }
 
     @Override
     public int getItemCount() {
-        return historiaUserList.size();
+        return historiaUzytkownikList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -63,7 +63,7 @@ public class HistoriaUzytkownikDesignPatternsAdapter extends RecyclerView.Adapte
 
         @Override
         public void onClick(View view) {
-            RezerwacjaDesignPatterns rezerwacjaDesignPatterns=historiaUserList.get(getAdapterPosition());
+            RezerwacjaDesignPatterns rezerwacjaDesignPatterns=historiaUzytkownikList.get(getAdapterPosition());
             Intent intent=new Intent(historiaUzytkownikDesignPatternsActivity, RezerwacjaInfoDesignPatternsActivity.class);
             intent.putExtra("rezerwacja",rezerwacjaDesignPatterns);
             historiaUzytkownikDesignPatternsActivity.startActivity(intent);

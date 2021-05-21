@@ -13,8 +13,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuKlientDesignPatternsActivity extends AppCompatActivity {
-
-    ImageView imageLogo;
     Button buttonHistoria,buttonRezerwuj;
     FirebaseAuth firebaseAuth;
 
@@ -23,7 +21,6 @@ public class MenuKlientDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menuklientdesignpatterns);
 
-        imageLogo=findViewById(R.id.logoimageView);
         buttonHistoria=findViewById(R.id.historiabutton);
         buttonRezerwuj=findViewById(R.id.rezerwujbutton);
 

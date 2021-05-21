@@ -26,7 +26,7 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
     RecyclerView recyclerviewKalenadarzUzytkownik;
 
     HistoriaUzytkownikDesignPatternsAdapter historiaUzytkownikDesignPatternsAdapter;
-    List<RezerwacjaDesignPatterns> historiaUserList;
+    List<RezerwacjaDesignPatterns> historiaUzytkownikList;
     FirebaseFirestore firebaseFirestore;
 
     Singleton singleton=Singleton.getInstance();
@@ -38,8 +38,8 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
 
         calendarKalendarzUzytkownik=findViewById(R.id.kalendarzUzytkownik);
         recyclerviewKalenadarzUzytkownik=(RecyclerView) findViewById(R.id.historiaUserList);
-        historiaUserList=new ArrayList<>();
-        historiaUzytkownikDesignPatternsAdapter=new HistoriaUzytkownikDesignPatternsAdapter(this,historiaUserList);
+        historiaUzytkownikList=new ArrayList<>();
+        historiaUzytkownikDesignPatternsAdapter=new HistoriaUzytkownikDesignPatternsAdapter(this,historiaUzytkownikList);
         recyclerviewKalenadarzUzytkownik.setHasFixedSize(true);
         recyclerviewKalenadarzUzytkownik.setLayoutManager(new LinearLayoutManager(this));
         recyclerviewKalenadarzUzytkownik.setAdapter(historiaUzytkownikDesignPatternsAdapter);
@@ -51,7 +51,7 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int rok, int miesiac, int dzien) {
                 String nazwaMesiaca=RezerwacjaUtils.getNazwaMiesiaca(miesiac);
-                historiaUserList.clear();
+                historiaUzytkownikList.clear();
                 recyclerviewKalenadarzUzytkownik.getAdapter().notifyDataSetChanged();
 
                 String data=dzien+" "+nazwaMesiaca+" "+rok;
@@ -65,7 +65,7 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
                                 for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
                                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                                         RezerwacjaDesignPatterns rezerwacjaDesignPatterns = documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                        historiaUserList.add(rezerwacjaDesignPatterns);
+                                        historiaUzytkownikList.add(rezerwacjaDesignPatterns);
 
                                         historiaUzytkownikDesignPatternsAdapter.notifyDataSetChanged();
                                     }

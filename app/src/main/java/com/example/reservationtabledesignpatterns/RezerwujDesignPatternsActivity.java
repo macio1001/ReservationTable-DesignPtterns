@@ -69,11 +69,6 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
 
         firebaseFirestore=FirebaseFirestore.getInstance();
 
-        Intent intent1=getIntent();
-        String email2=intent1.getStringExtra("Email");
-
-
-
         String iloscosob[]={"Wybierz ilosc osob","1","2","3","4","5","6"};
 
         textWybierzDate.setOnClickListener(new View.OnClickListener() {
@@ -355,7 +350,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 wybranagodzina=Wybrana;
-                if ((textWybierzDate == null) && (textWybierzGodzine == null) && (ilosc == 0)) {
+                if ((wybranadata == null) && (wybranagodzina == null) && (ilosc == 0)) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru obowiązkowych opcji!", Toast.LENGTH_SHORT).show();
                 } else if (wybranagodzina == null) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru godziny!", Toast.LENGTH_SHORT).show();
