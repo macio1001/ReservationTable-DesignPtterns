@@ -17,14 +17,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class PrzypomnieniehaslaDesignPatternsActivty extends AppCompatActivity {
+public class PrzypomnienieHaslaDesignPatternsActivty extends AppCompatActivity {
 
-    EditText email;
-    TextView przypomnienie;
-    Button przypomnij;
-    ImageView logo;
+    EditText editEmail;
+    TextView textPrzypomnienie;
+    Button buttonPrzypomnij;
+    ImageView imageLogo;
 
-    String Email;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -32,27 +31,27 @@ public class PrzypomnieniehaslaDesignPatternsActivty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.przypomnieniehasladesignpatterns);
 
-        logo=findViewById(R.id.logoimageView);
-        email=findViewById(R.id.emaileditText);
-        przypomnienie=findViewById(R.id.przypomnijtextview);
-        przypomnij=findViewById(R.id.przypomnijbutton);
+        imageLogo=findViewById(R.id.logoimageView);
+        editEmail=findViewById(R.id.emaileditText);
+        textPrzypomnienie=findViewById(R.id.przypomnijtextview);
+        buttonPrzypomnij=findViewById(R.id.przypomnijbutton);
 
         firebaseAuth= FirebaseAuth.getInstance();
 
-        przypomnij.setOnClickListener(new View.OnClickListener() {
+        buttonPrzypomnij.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Email=email.getText().toString();
-                if(!TextUtils.isEmpty(Email)) {
-                    firebaseAuth.sendPasswordResetEmail(Email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String email=editEmail.getText().toString();
+                if(!TextUtils.isEmpty(email)) {
+                    firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(PrzypomnieniehaslaDesignPatternsActivty.this, "Hasło wyslane na adres e-mail",
+                                Toast.makeText(PrzypomnienieHaslaDesignPatternsActivty.this, "Hasło wyslane na adres e-mail",
                                         Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(PrzypomnieniehaslaDesignPatternsActivty.this,LoginDesignPatternsActivity.class));
+                                startActivity(new Intent(PrzypomnienieHaslaDesignPatternsActivty.this,LogowanieDesignPatternsActivity.class));
                             } else {
-                                Toast.makeText(PrzypomnieniehaslaDesignPatternsActivty.this, task.getException().getMessage(),
+                                Toast.makeText(PrzypomnienieHaslaDesignPatternsActivty.this, task.getException().getMessage(),
                                         Toast.LENGTH_LONG).show();
                             }
                         }

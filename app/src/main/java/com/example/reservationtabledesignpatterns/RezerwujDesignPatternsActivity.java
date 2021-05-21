@@ -29,15 +29,15 @@ import java.util.Calendar;
 
 public class RezerwujDesignPatternsActivity extends AppCompatActivity {
 
-    private TextView wybierzdate,iloscosob,choosedate,wybierzgodzine,choosehour,ostrzezenie;
-    private Button dalej;
-    private RadioGroup iloscosobGroup;
-    private RadioButton osoba1,osoba2,osoba3,osoba4,osoba5,osoba6;
-    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    TextView textWybierzDate,textIloscOsob,textWybranaData,textWybierzGodzine,textWybranaGodzina,textOstrzezenie;
+    Button buttonDalej;
+    RadioGroup radioGroupIlosOosob;
+    RadioButton radiobtnPierwszaOsoba,radiobtnDrugaOsoba,radiobtnTrzeciaOsoba,radiobtnCzwartaOsoba,radiobtnPiataOsoba,radiobtnSzostaOsoba;
 
-    String Miesiac,Minuta;
+    DatePickerDialog.OnDateSetListener onDateSetListener;
+
+    String Minuta;
     String wybranadata,wybranagodzina,Wybrana;
-    int godzinafinish;
     int ilosc=0,minute,Minute,Godzina;
     FirebaseFirestore firebaseFirestore;
     Boolean zajety1=false,zajety2=false,zajety3=false,zajety4=false,zajety5=false,zajety6=false,WylaczStolik1=false,WylaczStolik2=false,WylaczStolik4=false,WylaczStolik5=false;
@@ -52,20 +52,20 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rezerwujdesignpatterns);
 
-        wybierzdate=findViewById(R.id.textView);
-        iloscosob=findViewById(R.id.howmanyperson);
-        iloscosobGroup=findViewById(R.id.RadioGroup);
-        osoba1=findViewById(R.id.radioButton);
-        osoba2=findViewById(R.id.radioButton2);
-        osoba3=findViewById(R.id.radioButton3);
-        osoba4=findViewById(R.id.radioButton4);
-        osoba5=findViewById(R.id.radioButton5);
-        osoba6=findViewById(R.id.radioButton6);
-        choosedate=findViewById(R.id.choosedate);
-        wybierzgodzine=findViewById(R.id.textView2);
-        choosehour=findViewById(R.id.choosehour);
-        dalej=findViewById(R.id.dalejBtn);
-        ostrzezenie=findViewById(R.id.warningTextView);
+        textWybierzDate=findViewById(R.id.wybierzdateTextView);
+        textWybierzGodzine=findViewById(R.id.wybierzgodzineTextView);
+        textIloscOsob=findViewById(R.id.howmanyperson);
+        radioGroupIlosOosob=findViewById(R.id.RadioGroup);
+        textWybranaData=findViewById(R.id.wybranadataTextView);
+        textWybranaGodzina=findViewById(R.id.wybranagodzinaTextView);
+        textOstrzezenie=findViewById(R.id.ostrzezenieTextView);
+        radiobtnPierwszaOsoba=findViewById(R.id.pierwszaosobaradioButton);
+        radiobtnDrugaOsoba=findViewById(R.id.drugaosobaradioButton);
+        radiobtnTrzeciaOsoba=findViewById(R.id.trzeciaosobaradioButton);
+        radiobtnCzwartaOsoba=findViewById(R.id.czwartaosobaradioButton);
+        radiobtnPiataOsoba=findViewById(R.id.piataosobaradioButton);
+        radiobtnSzostaOsoba=findViewById(R.id.szostaosobaradioButton);
+        buttonDalej=findViewById(R.id.dalejBtn);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
 
@@ -76,7 +76,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
 
         String iloscosob[]={"Wybierz ilosc osob","1","2","3","4","5","6"};
 
-        wybierzdate.setOnClickListener(new View.OnClickListener() {
+        textWybierzDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar kalendarz=Calendar.getInstance();
@@ -95,27 +95,15 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
         onDateSetListener=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int rok, int miesiac, int dzien) {
-                switch (miesiac){
-                    case 0: Miesiac="Styczeń";break;
-                    case 1: Miesiac="Luty";break;
-                    case 2: Miesiac="Marzec";break;
-                    case 3: Miesiac="Kwiecień";break;
-                    case 4: Miesiac="Maj";break;
-                    case 5: Miesiac="Czerwiec";break;
-                    case 6: Miesiac="Lipiec";break;
-                    case 7: Miesiac="Sierpień";break;
-                    case 8: Miesiac="Wrzesień";break;
-                    case 9: Miesiac="Październik";break;
-                    case 10: Miesiac="Listopad";break;
-                    case 11: Miesiac="Grudzień";break;
-                }
-                choosedate.setText(dzien+" "+Miesiac+" "+rok);
-                wybranadata=dzien+" "+Miesiac+" "+rok;
+                String nazwaMesiaca=RezerwacjaUtils.getNazwaMiesiaca(miesiac);
+                textWybranaData.setText(dzien+" "+nazwaMesiaca+" "+rok);
+                wybranadata=dzien+" "+nazwaMesiaca+" "+rok;
             }
         };
 
 
-        wybierzgodzine.setOnClickListener(new View.OnClickListener() {
+
+        textWybierzGodzine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar kalendarz1=Calendar.getInstance();
@@ -127,19 +115,19 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                 zajety4=false;
                 zajety5=false;
                 zajety6=false;
-                ostrzezenie.setText("");
-                iloscosobGroup.clearCheck();
+                textOstrzezenie.setText("");
+                radioGroupIlosOosob.clearCheck();
                 TimePickerDialog timePickerDialog=new TimePickerDialog(RezerwujDesignPatternsActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int godzina, int minuta) {
-                        dalej.setClickable(true);
+                        buttonDalej.setClickable(true);
                         if (minuta>=0 && minuta<10){
                             Minuta="0"+minuta;
                         }else{
                             Minuta=String.valueOf(minuta);
                         }
                         wybranagodzina=godzina+":"+Minuta;
-                        choosehour.setText(godzina+":"+Minuta);
+                        textWybranaGodzina.setText(godzina+":"+Minuta);
                         Wybrana=wybranagodzina;
                         Minute=Integer.valueOf(Minuta);
                         minute=Minute-15;
@@ -290,11 +278,11 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        iloscosobGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroupIlosOosob.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId){
-                    case R.id.radioButton:
+                    case R.id.pierwszaosobaradioButton:
                         ilosc=1;
                         if(zajety1==true && zajety2==false){
                             Log.d(TAG,"Lalala: Gotowosc jest:"+zajety1);
@@ -305,11 +293,11 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                             WylaczStolik2=true;
                             Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik2);
                         }else if(zajety1==true && zajety2==true){
-                            ostrzezenie.setText("W tym terminie stoliki są zajęte");
-                            dalej.setClickable(false);
+                            textOstrzezenie.setText("W tym terminie stoliki są zajęte");
+                            buttonDalej.setClickable(false);
                         }
                         break;
-                    case R.id.radioButton2:
+                    case R.id.drugaosobaradioButton:
                         ilosc=2;
                         if(zajety1==true && zajety2==false){
                             Log.d(TAG,"Lalala: Gotowosc jest:"+zajety1);
@@ -320,18 +308,18 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                             WylaczStolik2=true;
                             Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik2);
                         }else if(zajety1==true && zajety2==true){
-                            ostrzezenie.setText("O tej godzinie stoliki dla 2 osób są zajęte!Proszę wybrać inną godzinę!");
-                            dalej.setClickable(false);
+                            textOstrzezenie.setText("O tej godzinie stoliki dla 2 osób są zajęte!Proszę wybrać inną godzinę!");
+                            buttonDalej.setClickable(false);
                         }
                         break;
-                    case R.id.radioButton3:
+                    case R.id.trzeciaosobaradioButton:
                         ilosc=3;
                         if(zajety3==true){
-                            ostrzezenie.setText("W tym terminie stoliki dla 3 osób są zajęte!Proszę wybrać inną godzinę!");
-                            dalej.setClickable(false);
+                            textOstrzezenie.setText("W tym terminie stoliki dla 3 osób są zajęte!Proszę wybrać inną godzinę!");
+                            buttonDalej.setClickable(false);
                         }
                         break;
-                    case R.id.radioButton4:
+                    case R.id.czwartaosobaradioButton:
                         ilosc=4;
                         if(zajety4==true && zajety5==false){
                             Log.d(TAG,"Lalala: Gotowosc jest:"+zajety4);
@@ -342,32 +330,32 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                             WylaczStolik5=true;
                             Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik5);
                         }else if(zajety4==true && zajety5==true){
-                            ostrzezenie.setText("W tym terminie stoliki dla 4 osób są zajęte! Proszę wybrać inną godzinę!");
-                            dalej.setClickable(false);
+                            textOstrzezenie.setText("W tym terminie stoliki dla 4 osób są zajęte! Proszę wybrać inną godzinę!");
+                            buttonDalej.setClickable(false);
                         }
                         break;
-                    case R.id.radioButton5:
+                    case R.id.piataosobaradioButton:
                         ilosc=5;
                         if(zajety5==true){
-                            ostrzezenie.setText("W tym terminie stoliki dla 6 osób są zajęte!Proszę wybrać inną godzinę!");
-                            dalej.setClickable(false);
+                            textOstrzezenie.setText("W tym terminie stoliki dla 6 osób są zajęte!Proszę wybrać inną godzinę!");
+                            buttonDalej.setClickable(false);
                         }
                         break;
-                    case R.id.radioButton6:
+                    case R.id.szostaosobaradioButton:
                         ilosc=6;
                         if(zajety6==true){
-                            ostrzezenie.setText("W tym terminie stoliki dla 6 osób są zajęte!Proszę wybrać inną godzinę!");
-                            dalej.setClickable(false);
+                            textOstrzezenie.setText("W tym terminie stoliki dla 6 osób są zajęte!Proszę wybrać inną godzinę!");
+                            buttonDalej.setClickable(false);
                         }
                         break;
                 }
             }
         });
-        dalej.setOnClickListener(new View.OnClickListener() {
+        buttonDalej.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 wybranagodzina=Wybrana;
-                if ((wybierzdate == null) && (wybranagodzina == null) && (ilosc == 0)) {
+                if ((textWybierzDate == null) && (textWybierzGodzine == null) && (ilosc == 0)) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru obowiązkowych opcji!", Toast.LENGTH_SHORT).show();
                 } else if (wybranagodzina == null) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru godziny!", Toast.LENGTH_SHORT).show();

@@ -24,141 +24,58 @@ import java.util.List;
 public class WyszukiwanieRezerwacjiDesignPatternsActivity extends AppCompatActivity {
 
     private static final String TAG="WyszukiwanieActivity";
-    TextView wyszukiwanie;
-    EditText kod;
-    Button szukaj;
-    String Wyszukanie;
+    TextView textWyszukiwanie;
+    EditText editKod;
+    Button buttonSzukaj;
+    RecyclerView recyclerviewRezerwacja;
 
-    private RecyclerView recyclerView;
-    private List<RezerwacjaDesignPatterns> rezerwacjaList;
-    private FirebaseFirestore firebaseFirestore;
-    private RezerwacjaDesignPatternsAdapter rezerwacjaDesignPatternsAdapter;
+    List<RezerwacjaDesignPatterns> rezerwacjaList;
+    RezerwacjaDesignPatternsAdapter rezerwacjaDesignPatternsAdapter;
+
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wyszukiwanierezerwacjidesignpatterns);
 
-        wyszukiwanie=findViewById(R.id.wyszukiwanietextView);
-        kod=findViewById(R.id.kodeditText);
-        szukaj=findViewById(R.id.szukajbutton);
+        textWyszukiwanie=findViewById(R.id.wyszukiwanietextView);
+        editKod=findViewById(R.id.kodeditText);
+        buttonSzukaj=findViewById(R.id.szukajbutton);
 
-        recyclerView=(RecyclerView) findViewById(R.id.rezerwujlist);
+        recyclerviewRezerwacja=(RecyclerView) findViewById(R.id.rezerwujlist);
         rezerwacjaList=new ArrayList<>();
         rezerwacjaDesignPatternsAdapter=new RezerwacjaDesignPatternsAdapter(this,rezerwacjaList);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(rezerwacjaDesignPatternsAdapter);
+        recyclerviewRezerwacja.setHasFixedSize(true);
+        recyclerviewRezerwacja.setLayoutManager(new LinearLayoutManager(this));
+        recyclerviewRezerwacja.setAdapter(rezerwacjaDesignPatternsAdapter);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
 
-        szukaj.setOnClickListener(new View.OnClickListener() {
+        buttonSzukaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Wyszukanie=kod.getText().toString();
+                String wyszukanie=editKod.getText().toString();
 
-                firebaseFirestore.collection("Stoliknr1").whereEqualTo("Nazwisko",Wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d(TAG,"Error:"+e.getMessage());
-                        }else{
-                            for (DocumentChange documentChange:queryDocumentSnapshots.getDocumentChanges()){
-                                if(documentChange.getType()==DocumentChange.Type.ADDED){
-                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns=documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                    rezerwacjaList.add(rezerwacjaDesignPatterns);
+                for(int i=0;i<=6;i++) {
+                    firebaseFirestore.collection("Stoliknr" + i).whereEqualTo("Nazwisko", wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+                                Log.d(TAG, "Error:" + e.getMessage());
+                            } else {
+                                for (DocumentChange documentChange : queryDocumentSnapshots.getDocumentChanges()) {
+                                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
+                                        RezerwacjaDesignPatterns rezerwacjaDesignPatterns = documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
+                                        rezerwacjaList.add(rezerwacjaDesignPatterns);
 
-                                    rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
+                                        rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
+                                    }
                                 }
                             }
                         }
-                    }
-                });
-                firebaseFirestore.collection("Stoliknr2").whereEqualTo("Nazwisko",Wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d(TAG,"Error:"+e.getMessage());
-                        }else{
-                            for (DocumentChange documentChange:queryDocumentSnapshots.getDocumentChanges()){
-                                if(documentChange.getType()==DocumentChange.Type.ADDED){
-                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns=documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                    rezerwacjaList.add(rezerwacjaDesignPatterns);
-
-                                    rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("Stoliknr3").whereEqualTo("Nazwisko",Wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d(TAG,"Error:"+e.getMessage());
-                        }else{
-                            for (DocumentChange documentChange:queryDocumentSnapshots.getDocumentChanges()){
-                                if(documentChange.getType()==DocumentChange.Type.ADDED){
-                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns=documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                    rezerwacjaList.add(rezerwacjaDesignPatterns);
-
-                                    rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("Stoliknr4").whereEqualTo("Nazwisko",Wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d(TAG,"Error:"+e.getMessage());
-                        }else{
-                            for (DocumentChange documentChange:queryDocumentSnapshots.getDocumentChanges()){
-                                if(documentChange.getType()==DocumentChange.Type.ADDED){
-                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns=documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                    rezerwacjaList.add(rezerwacjaDesignPatterns);
-
-                                    rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("Stoliknr5").whereEqualTo("Nazwisko",Wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d(TAG,"Error:"+e.getMessage());
-                        }else{
-                            for (DocumentChange documentChange:queryDocumentSnapshots.getDocumentChanges()){
-                                if(documentChange.getType()==DocumentChange.Type.ADDED){
-                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns=documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                    rezerwacjaList.add(rezerwacjaDesignPatterns);
-
-                                    rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
-                firebaseFirestore.collection("Stoliknr6").whereEqualTo("Nazwisko",Wyszukanie).addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e!=null){
-                            Log.d(TAG,"Error:"+e.getMessage());
-                        }else{
-                            for (DocumentChange documentChange:queryDocumentSnapshots.getDocumentChanges()){
-                                if(documentChange.getType()==DocumentChange.Type.ADDED){
-                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns=documentChange.getDocument().toObject(RezerwacjaDesignPatterns.class);
-                                    rezerwacjaList.add(rezerwacjaDesignPatterns);
-
-                                    rezerwacjaDesignPatternsAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
     }

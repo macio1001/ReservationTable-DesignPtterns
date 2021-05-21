@@ -22,10 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
 
-    private ImageView stolik1,stolik2,stolik3,stolik4,stolik5,stolik6;
-    private TextView tytul;
-    private CheckBox checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBox6;
-    private Button akceptuj;
+    CheckBox checkPierwszyStolik,checkDrugiStolik,checkTrzeciStolik,checkCzwartyStolik,checkPiatyStolik,checkSzostyStolik;
+    Button buttonAkceptuj;
 
     FirebaseFirestore firebaseFirestore;
     public Boolean stolik1off=false,stolik2off=false,stolik3off=false,stolik4off=false,stolik5off=false,stolik6off=false;
@@ -38,20 +36,13 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stolikioffdesignpatterns);
 
-        tytul=findViewById(R.id.OffStolik);
-        stolik1=findViewById(R.id.imageView);
-        stolik2=findViewById(R.id.imageView2);
-        stolik3=findViewById(R.id.imageView3);
-        stolik4=findViewById(R.id.imageView4);
-        stolik5=findViewById(R.id.imageView5);
-        stolik6=findViewById(R.id.imageView6);
-        akceptuj=findViewById(R.id.acceotbutton);
-        checkBox1=findViewById(R.id.table1checkBox);
-        checkBox2=findViewById(R.id.table2checkBox);
-        checkBox3=findViewById(R.id.table3checkbox);
-        checkBox4=findViewById(R.id.table4checkBox);
-        checkBox5=findViewById(R.id.table5checkBox);
-        checkBox6=findViewById(R.id.table6checkBox);
+        buttonAkceptuj=findViewById(R.id.acceotbutton);
+        checkPierwszyStolik=findViewById(R.id.table1checkBox);
+        checkDrugiStolik=findViewById(R.id.table2checkBox);
+        checkTrzeciStolik=findViewById(R.id.table3checkbox);
+        checkCzwartyStolik=findViewById(R.id.table4checkBox);
+        checkPiatyStolik=findViewById(R.id.table5checkBox);
+        checkSzostyStolik=findViewById(R.id.table6checkBox);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
 
@@ -62,15 +53,21 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
         sprawdzStolik5();
         sprawdzStolik6();
 
-        checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        Caretaker caretaker=new Caretaker();
+        Originator originator=new Originator();
+        originator.ustaw(false);
+        caretaker.dodajMemento(originator.zapiszwMemento());
+        checkPierwszyStolik.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(checkBox1.isChecked()){
+                if(checkPierwszyStolik.isChecked()){
                     firebaseFirestore.collection("Stoliknr1").document("Status").update("OnOff",true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik1off=true;
+                                    stolik1off=originator.ustaw(true);
+                                    Log.d("Zmiana Statusu","Lala 1"+stolik1off);
+                                    caretaker.dodajMemento(originator.zapiszwMemento());
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -84,7 +81,8 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik1off=false;
+                                    stolik1off=originator.przywracaniezMemento(caretaker.getMemento(0));
+                                    Log.d("Zmiana Statusu","Lala 1"+stolik1off);
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -97,15 +95,17 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        checkBox2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkDrugiStolik.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(checkBox2.isChecked()){
+                if(checkDrugiStolik.isChecked()){
                     firebaseFirestore.collection("Stoliknr2").document("Status").update("OnOff",true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik2off=true;
+                                    stolik2off=originator.ustaw(true);
+                                    Log.d("Zmiana Statusu","Lala 2"+stolik2off);
+                                    caretaker.dodajMemento(originator.zapiszwMemento());
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -119,7 +119,8 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik2off=false;
+                                    stolik2off=originator.przywracaniezMemento(caretaker.getMemento(0));
+                                    Log.d("Zmiana Statusu","Lala 2"+stolik2off);
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -132,15 +133,17 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        checkBox3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkTrzeciStolik.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(checkBox3.isChecked()){
+                if(checkTrzeciStolik.isChecked()){
                     firebaseFirestore.collection("Stoliknr3").document("Status").update("OnOff",true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik3off=true;
+                                    stolik3off=originator.ustaw(true);
+                                    Log.d("Zmiana Statusu","Lala 3"+stolik3off);
+                                    caretaker.dodajMemento(originator.zapiszwMemento());
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -154,7 +157,8 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik3off=false;
+                                    stolik3off=originator.przywracaniezMemento(caretaker.getMemento(0));
+                                    Log.d("Zmiana Statusu","Lala 3"+stolik3off);
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -167,15 +171,17 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        checkBox4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkCzwartyStolik.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(checkBox4.isChecked()){
+                if(checkCzwartyStolik.isChecked()){
                     firebaseFirestore.collection("Stoliknr4").document("Status").update("OnOff",true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik4off=true;
+                                    stolik4off=originator.ustaw(true);
+                                    Log.d("Zmiana Statusu","Lala 4"+stolik4off);
+                                    caretaker.dodajMemento(originator.zapiszwMemento());
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -189,7 +195,8 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik4off=false;
+                                    stolik4off=originator.przywracaniezMemento(caretaker.getMemento(0));
+                                    Log.d("Zmiana Statusu","Lala 4"+stolik4off);
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -202,15 +209,17 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        checkBox5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkPiatyStolik.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(checkBox5.isChecked()){
+                if(checkPiatyStolik.isChecked()){
                     firebaseFirestore.collection("Stoliknr5").document("Status").update("OnOff",true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik5off=true;
+                                    stolik5off=originator.ustaw(true);
+                                    Log.d("Zmiana Statusu","Lala 5"+stolik5off);
+                                    caretaker.dodajMemento(originator.zapiszwMemento());
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -224,7 +233,8 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik5off=false;
+                                    stolik5off=originator.przywracaniezMemento(caretaker.getMemento(0));
+                                    Log.d("Zmiana Statusu","Lala 5"+stolik5off);
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -237,15 +247,17 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        checkBox6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkSzostyStolik.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(checkBox6.isChecked()){
+                if(checkSzostyStolik.isChecked()){
                     firebaseFirestore.collection("Stoliknr6").document("Status").update("OnOff",true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik6off=true;
+                                    stolik6off=originator.ustaw(true);
+                                    Log.d("Zmiana Statusu","Lala 6"+stolik6off);
+                                    caretaker.dodajMemento(originator.zapiszwMemento());
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -259,7 +271,8 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    stolik6off=false;
+                                    stolik6off=originator.przywracaniezMemento(caretaker.getMemento(0));
+                                    Log.d("Zmiana Statusu","Lala 6"+stolik6off);
                                     Log.d(TAG,"DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -272,7 +285,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        akceptuj.setOnClickListener(new View.OnClickListener() {
+        buttonAkceptuj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(StolikiOffDesignPatternsActivity.this,MenuRestauracjaDesignPatternsActivity.class));
@@ -290,7 +303,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             if(documentSnapshot.exists()){
                                 stolik1on=documentSnapshot.getBoolean("OnOff");
                                 if(stolik1on==true){
-                                    checkBox1.setChecked(true);
+                                    checkPierwszyStolik.setChecked(true);
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{
@@ -313,7 +326,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             if(documentSnapshot.exists()){
                                 stolik2on=documentSnapshot.getBoolean("OnOff");
                                 if(stolik2on==true){
-                                    checkBox2.setChecked(true);
+                                    checkDrugiStolik.setChecked(true);
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{
@@ -336,7 +349,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             if(documentSnapshot.exists()){
                                 stolik3on=documentSnapshot.getBoolean("OnOff");
                                 if(stolik3on==true){
-                                    checkBox3.setChecked(true);
+                                    checkTrzeciStolik.setChecked(true);
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{
@@ -359,7 +372,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             if(documentSnapshot.exists()){
                                 stolik4on=documentSnapshot.getBoolean("OnOff");
                                 if(stolik4on==true){
-                                    checkBox4.setChecked(true);
+                                    checkCzwartyStolik.setChecked(true);
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{
@@ -382,7 +395,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             if(documentSnapshot.exists()){
                                 stolik5on=documentSnapshot.getBoolean("OnOff");
                                 if(stolik5on.equals(true)){
-                                    checkBox5.setChecked(true);
+                                    checkPiatyStolik.setChecked(true);
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{
@@ -405,7 +418,7 @@ public class StolikiOffDesignPatternsActivity extends AppCompatActivity {
                             if(documentSnapshot.exists()){
                                 stolik6on=documentSnapshot.getBoolean("OnOff");
                                 if(stolik6on==true){
-                                    checkBox6.setChecked(true);
+                                    checkSzostyStolik.setChecked(true);
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{

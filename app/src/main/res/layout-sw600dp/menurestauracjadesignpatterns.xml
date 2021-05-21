@@ -13,10 +13,10 @@
         android:layout_height="200dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/rezerwacjebutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/rezerwacjebutton"
-        android:layout_width="190dp"
+        android:layout_width="0dp"
         android:layout_height="190dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/skanerbutton"
-        android:layout_width="190dp"
+        android:layout_width="0dp"
         android:layout_height="190dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
@@ -55,21 +55,24 @@
 
     <Button
         android:id="@+id/stolikibutton"
-        android:layout_width="190dp"
+        android:layout_width="0dp"
         android:layout_height="190dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:text="Stoliki"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/wyszukiwaniebutton"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/skanerbutton"
+        app:layout_constraintVertical_bias="0.968" />
 
     <Button
         android:id="@+id/wyszukiwaniebutton"
-        android:layout_width="190dp"
+        android:layout_width="0dp"
         android:layout_height="190dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"

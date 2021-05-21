@@ -5,41 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#9DA2C4"
-    tools:context=".LogowanieDesignPatternsActivity">
+    tools:context=".RejestracjaDesignPatternsActivity">
 
     <ImageView
         android:id="@+id/logoimageView"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="298dp"
+        android:layout_height="189dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/emailtextview"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/emailtextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logo_application"
-        tools:src="@mipmap/logo_application"
-        tools:srcCompat="@mipmap/logo_application"
-        tools:visibility="visible" />
+        tools:srcCompat="@mipmap/logo_application" />
 
     <TextView
-        android:id="@+id/emailtextview"
+        android:id="@+id/emailtextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="340dp"
         android:layout_marginRight="340dp"
         android:layout_marginBottom="10dp"
         android:text="Email:"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/emaileditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/haslotextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailtextview" />
+        app:layout_constraintTop_toBottomOf="@+id/emailtextView" />
 
     <TextView
         android:id="@+id/haslotextView"
@@ -74,7 +70,6 @@
         android:layout_marginBottom="10dp"
         android:text="Hasło:"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/hasloeditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,13 +87,47 @@
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/zalogujbutton"
+        app:layout_constraintBottom_toTopOf="@+id/powtorzhaslotextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/haslotextView" />
 
+    <TextView
+        android:id="@+id/powtorzhaslotextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginRight="280dp"
+        android:layout_marginBottom="10dp"
+        android:text="Powtórz haslo:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/powtorzhasloeditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hasloeditText" />
+
+    <EditText
+        android:id="@+id/powtorzhasloeditText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="60dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/zarejestrujbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/powtorzhaslotextView" />
+
     <Button
-        android:id="@+id/zalogujbutton"
+        android:id="@+id/zarejestrujbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
@@ -106,42 +135,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="160dp"
         android:layout_marginRight="160dp"
-        android:text="Zaloguj się"
+        android:text="Zarejestruj się!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hasloeditText" />
+        app:layout_constraintTop_toBottomOf="@+id/powtorzhasloeditText" />
 
-    <TextView
-        android:id="@+id/przypomnijtextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="70dp"
-        android:text="Przypomnij hasło!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rejestrujtextView"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/rejestrujtextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="10dp"
-        android:text="Nie masz konta? Zarejestruj się!"
-        app:layout_constraintBottom_toTopOf="@+id/przypomnijtextview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/zalogujbutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

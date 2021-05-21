@@ -39,27 +39,23 @@ import java.util.Map;
 import javax.xml.parsers.FactoryConfigurationError;
 
 public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
-
-    TextView daneosobowe,imie,nazwisko,email,telefon,iloscosob,godzina,data;
-    EditText imieedit,nazwiskoedit,emailedit,telefonedit,iloscosobedit,godzinaedit,dataedit;
-    Button rezerwuj;
-    CheckBox wyborgaleria;
-    ImageView kodQR;
-    Boolean flaga=false;
-
-
-    String Imie,Nazwisko,Email,Telefon,Ilosc;
-    public FirebaseFirestore firebaseFirestore;
-    public FirebaseStorage firebaseStorage;
-    public StorageReference storageReference;
     private static final String TAG="DaneOsoboweActivity";
-    public final static int QRCodeWidth=500;
+    EditText editImie,editNazwisko,editEmail,editTelefon,editIloscOsob,editGodzina,editData;
+    Button buttonRezerwuj;
+    CheckBox checkZapiszwGalerii;
+    ImageView imageKodQR;
     Bitmap bitmap;
-    String Text,stolik1;
 
+    Boolean flaga;
+    String wybranaData,wybranaGodzina,emailUzytkownika,stolik,daneRezerwacji,ilosc,email;
+    int wybranyStolik,wybranaIloscOsob;
 
-    String wybranagodzina2,wybranadata2,Email1;
-    int stolik,ilosc2;
+    FirebaseFirestore firebaseFirestore;
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
+
+    public final static int QRCodeWidth=500;
+
     Singleton singleton=Singleton.getInstance();
 
     @Override
@@ -67,87 +63,75 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.daneosobowedesignpatterns);
 
-        daneosobowe = findViewById(R.id.naglowektextView);
-        imie = findViewById(R.id.imietextView);
-        imieedit = findViewById(R.id.imieeditText);
-        nazwisko = findViewById(R.id.nazwiskotextView);
-        nazwiskoedit = findViewById(R.id.nazwiskoeditText);
-        email = findViewById(R.id.emailtextView);
-        emailedit = findViewById(R.id.emaileditText);
-        telefon = findViewById(R.id.telefontextView);
-        telefonedit = findViewById(R.id.numereditText);
-        rezerwuj = findViewById(R.id.rezerwujbutton);
-        wyborgaleria = findViewById(R.id.dowloadtogallery);
-        iloscosob = findViewById(R.id.iloscosobtextView);
-        iloscosobedit = findViewById(R.id.iloscosobeditText);
-        godzina = findViewById(R.id.godzinatextView);
-        godzinaedit = findViewById(R.id.godzinaeditText);
-        data = findViewById(R.id.datatextView);
-        dataedit = findViewById(R.id.dataeditText);
-        kodQR = findViewById(R.id.imageView8);
+        editImie = findViewById(R.id.imieeditText);
+        editNazwisko = findViewById(R.id.nazwiskoeditText);
+        editEmail = findViewById(R.id.emaileditText);
+        editTelefon = findViewById(R.id.numereditText);
+        editIloscOsob = findViewById(R.id.iloscosobeditText);
+        editGodzina = findViewById(R.id.godzinaeditText);
+        editData = findViewById(R.id.dataeditText);
+        buttonRezerwuj = findViewById(R.id.rezerwujbutton);
+        checkZapiszwGalerii= findViewById(R.id.dowloadtogallery);
+        imageKodQR = findViewById(R.id.imageView8);
 
-        onChange onChange=new onChange();
+        wybranaData = singleton.pokazdaterezerwacji();
+        wybranaGodzina = singleton.pokazgodzinerezerwacji();
+        emailUzytkownika = singleton.pokazEmail();
+        wybranyStolik = singleton.pokazstolik();
+        wybranaIloscOsob = singleton.pokazilosc();
 
-        wybranadata2 = singleton.pokazdaterezerwacji();
-        wybranagodzina2 = singleton.pokazgodzinerezerwacji();
-        Email1 = singleton.pokazEmail();
-        stolik = singleton.pokazstolik();
-        ilosc2 = singleton.pokazilosc();
+        stolik = String.valueOf(wybranyStolik);
+        ilosc = String.valueOf(wybranaIloscOsob);
 
-        Ilosc = String.valueOf(ilosc2);
+        editIloscOsob.setText(String.valueOf(wybranaIloscOsob));
+        editGodzina.setText(wybranaGodzina);
+        editData.setText(wybranaData);
+        editEmail.setText(emailUzytkownika);
 
-        stolik1 = String.valueOf(stolik);
-        String podanyemail = Email1;
-
-        iloscosobedit.setText(Ilosc);
-        godzinaedit.setText(wybranagodzina2);
-        dataedit.setText(wybranadata2);
-        emailedit.setText(podanyemail);
-
-        Map<String, Object> daneosobowe = new HashMap<>();
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
 
+        Map<String, Object> daneRezerwacyjne = new HashMap<>();
 
-        wyborgaleria.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkZapiszwGalerii.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean icchecked) {
-                if(wyborgaleria.isChecked()){
-                    onChange.zmiana(flaga);
+                if(checkZapiszwGalerii.isChecked()){
+                    flaga=true;
                 }
             }
         });
-        rezerwuj.setOnClickListener(new View.OnClickListener() {
+        buttonRezerwuj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Imie = imieedit.getText().toString();
-                Nazwisko = nazwiskoedit.getText().toString();
-                Email = emailedit.getText().toString();
-                Telefon = telefonedit.getText().toString();
-                if (Imie.trim().length() == 0) {
+                String imie = editImie.getText().toString();
+                String nazwisko = editNazwisko.getText().toString();
+                email = editEmail.getText().toString();
+                String telefon = editTelefon.getText().toString();
+                if (imie.trim().length() == 0) {
                     Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Nie wprowadziłeś swojego imienia!", Toast.LENGTH_SHORT).show();
-                } else if (Nazwisko.trim().length() == 0) {
+                } else if (nazwisko.trim().length() == 0) {
                     Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Nie wprowadziłeś swojego nazwiska!", Toast.LENGTH_SHORT).show();
-                } else if (Email.trim().length() == 0) {
+                } else if (email.trim().length() == 0) {
                     Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Nie wprowadziłeś swojego emaila!", Toast.LENGTH_SHORT).show();
-                } else if (Telefon.trim().length() == 0) {
+                } else if (telefon.trim().length() == 0) {
                     Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Nie wprowadziłeś swojego numeru telefonu!", Toast.LENGTH_SHORT).show();
                 }
 
-                Text = "Imię i Nazwisko:" + Imie + " " + Nazwisko + " Email:" + Email + " Telefon:" + Telefon + " Stolik:" + stolik + " Dsta:" + wybranadata2 + " Godzina:" + wybranagodzina2 + " Ilość osób:" + ilosc2;
+                daneRezerwacji = "Imię i Nazwisko:" + imie + " " + nazwisko + " Email:" + email + " Telefon:" + telefon + " Stolik:" + stolik + " Dsta:" + wybranaData + " Godzina:" + wybranaGodzina + " Ilość osób:" + ilosc;
 
-                daneosobowe.put("Imie", Imie);
-                daneosobowe.put("Nazwisko", Nazwisko);
-                daneosobowe.put("Email", podanyemail);
-                daneosobowe.put("Telefon", Telefon);
-                daneosobowe.put("Data", wybranadata2);
-                daneosobowe.put("Godzina", wybranagodzina2);
-                daneosobowe.put("Stolik", stolik1);
-                daneosobowe.put("Ilosc", Ilosc);
-                daneosobowe.put("Kod", Text);
+                daneRezerwacyjne.put("Imie", imie);
+                daneRezerwacyjne.put("Nazwisko", nazwisko);
+                daneRezerwacyjne.put("Email", emailUzytkownika);
+                daneRezerwacyjne.put("Telefon", telefon);
+                daneRezerwacyjne.put("Data", wybranaData);
+                daneRezerwacyjne.put("Godzina", wybranaGodzina);
+                daneRezerwacyjne.put("Stolik", stolik);
+                daneRezerwacyjne.put("Ilosc", ilosc);
+                daneRezerwacyjne.put("Kod", daneRezerwacji);
 
-                firebaseFirestore.collection("Stoliknr" + stolik).add(daneosobowe)
+                firebaseFirestore.collection("Stoliknr" + wybranyStolik).add(daneRezerwacyjne)
                      .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
@@ -162,8 +146,8 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
 
 
                 try {
-                    bitmap = textToImageEncode(Text);
-                    kodQR.setImageBitmap(bitmap);
+                    bitmap = textToImageEncode(daneRezerwacji);
+                    imageKodQR.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();
                 }
@@ -210,10 +194,10 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
     }
 
     public void uploadImage(){
-        StorageReference imageReference=storageReference.child("KodQR/"+Text+".jpg");
-        kodQR.setDrawingCacheEnabled(true);
-        kodQR.buildDrawingCache();
-        Bitmap bitmap1=((BitmapDrawable) kodQR.getDrawable()).getBitmap();
+        StorageReference imageReference=storageReference.child("KodQR/"+daneRezerwacji+".jpg");
+        imageKodQR.setDrawingCacheEnabled(true);
+        imageKodQR.buildDrawingCache();
+        Bitmap bitmap1=((BitmapDrawable) imageKodQR.getDrawable()).getBitmap();
         ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         bitmap1.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
         byte[] data=byteArrayOutputStream.toByteArray();
@@ -229,7 +213,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Intent intent = new Intent(DaneOsoboweDesignPatternsActivity.this, MenuKlientDesignPatternsActivity.class);
-                intent.putExtra("Email", Email);
+                intent.putExtra("Email",email);
                 startActivity(intent);
             }
         });

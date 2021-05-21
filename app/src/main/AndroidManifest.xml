@@ -21,12 +21,12 @@
         <activity android:name=".RezerwacjaInfoDesignPatternsActivity" />
         <activity android:name=".MenuRestauracjaDesignPatternsActivity" />
         <activity android:name=".MenuKlientDesignPatternsActivity" />
-        <activity android:name=".HistoriaUserDesignPatternsActivity" />
+        <activity android:name=".HistoriaUzytkownikDesignPatternsActivity" />
         <activity android:name=".HistoriaDesignPatternsActivity" />
         <activity android:name=".DaneOsoboweDesignPatternsActivity" />
-        <activity android:name=".PrzypomnieniehaslaDesignPatternsActivty" />
+        <activity android:name=".PrzypomnienieHaslaDesignPatternsActivty" />
         <activity android:name=".RejestracjaDesignPatternsActivity" />
-        <activity android:name=".LoginDesignPatternsActivity">
+        <activity android:name=".LogowanieDesignPatternsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

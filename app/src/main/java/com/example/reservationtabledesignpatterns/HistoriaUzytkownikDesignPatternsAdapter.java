@@ -11,24 +11,24 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class HistoriaUserDesignPatternsAdapter extends RecyclerView.Adapter<HistoriaUserDesignPatternsAdapter.ViewHolder>{
+public class HistoriaUzytkownikDesignPatternsAdapter extends RecyclerView.Adapter<HistoriaUzytkownikDesignPatternsAdapter.ViewHolder>{
     public List<RezerwacjaDesignPatterns> historiaUserList;
-    public HistoriaUserDesignPatternsActivity historiaUserDesignPatternsActivity;
+    public HistoriaUzytkownikDesignPatternsActivity historiaUzytkownikDesignPatternsActivity;
 
-    public HistoriaUserDesignPatternsAdapter(HistoriaUserDesignPatternsActivity historiaUserDesignPatternsActivity,List<RezerwacjaDesignPatterns> historiaUserList){
-        this.historiaUserDesignPatternsActivity=historiaUserDesignPatternsActivity;
+    public HistoriaUzytkownikDesignPatternsAdapter(HistoriaUzytkownikDesignPatternsActivity historiaUserDesignPatternsActivity,List<RezerwacjaDesignPatterns> historiaUserList){
+        this.historiaUzytkownikDesignPatternsActivity=historiaUserDesignPatternsActivity;
         this.historiaUserList=historiaUserList;
     }
 
     @NonNull
     @Override
-    public HistoriaUserDesignPatternsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HistoriaUzytkownikDesignPatternsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.listitemdesignpatterns,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HistoriaUserDesignPatternsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HistoriaUzytkownikDesignPatternsAdapter.ViewHolder holder, int position) {
         holder.imieText.setText(historiaUserList.get(position).getImie());
         holder.nazwiskotext.setText(historiaUserList.get(position).getNazwisko());
         holder.stolikText.setText(historiaUserList.get(position).getStolik());
@@ -64,9 +64,9 @@ public class HistoriaUserDesignPatternsAdapter extends RecyclerView.Adapter<Hist
         @Override
         public void onClick(View view) {
             RezerwacjaDesignPatterns rezerwacjaDesignPatterns=historiaUserList.get(getAdapterPosition());
-            Intent intent=new Intent(historiaUserDesignPatternsActivity, RezerwacjaInfoDesignPatternsActivity.class);
+            Intent intent=new Intent(historiaUzytkownikDesignPatternsActivity, RezerwacjaInfoDesignPatternsActivity.class);
             intent.putExtra("rezerwacja",rezerwacjaDesignPatterns);
-            historiaUserDesignPatternsActivity.startActivity(intent);
+            historiaUzytkownikDesignPatternsActivity.startActivity(intent);
         }
     }
 }

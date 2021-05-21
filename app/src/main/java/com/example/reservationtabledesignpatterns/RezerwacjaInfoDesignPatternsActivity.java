@@ -17,13 +17,13 @@ import com.google.firebase.storage.StorageReference;
 
 public class RezerwacjaInfoDesignPatternsActivity extends AppCompatActivity {
 
-    ImageView logoInfo;
-    TextView Imieinfo,imieinfo,Nazwiskoinfo,nazwiskoinfo,Emailinfo,emailinfo,Godzinainfo,godzinainfo,
-            Datainfo,datainfo,Telefoninfo,telefoninfo,Stolikinfo,stolikinfo,Iloscinfo,iloscinfo;
+    ImageView imageLogoInfo;
+    TextView textImieInfo,textNazwiskoInfo,textEmailInfo,textGodzinaInfo,textDataInfo,textTelefonInfo,textStolikInfo,textIloscInfo;
 
     FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
+
     String kod;
 
     @Override
@@ -31,23 +31,15 @@ public class RezerwacjaInfoDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rezerwacjainfodesignpatterns);
 
-        logoInfo=findViewById(R.id.logoinfoimageview);
-        Imieinfo=findViewById(R.id.ImieInfoTextView);
-        imieinfo=findViewById(R.id.imieInfoTextVIew);
-        Nazwiskoinfo=findViewById(R.id.NazwiskoInfoTextView);
-        nazwiskoinfo=findViewById(R.id.nazwiskoInfoTextView);
-        Emailinfo=findViewById(R.id.EmailInfoTextVIew);
-        emailinfo=findViewById(R.id.emailInfoTextView);
-        Godzinainfo=findViewById(R.id.GodzinaInfoTextView);
-        godzinainfo=findViewById(R.id.godzinaInfoTextView);
-        Datainfo=findViewById(R.id.DatainfoTextView);
-        datainfo=findViewById(R.id.dataInfoTextView);
-        Telefoninfo=findViewById(R.id.TelefonInfoTextView);
-        telefoninfo=findViewById(R.id.telefonInfoTextView);
-        Stolikinfo=findViewById(R.id.StolikInfoTextView);
-        stolikinfo=findViewById(R.id.stolikInfoTextView);
-        Iloscinfo=findViewById(R.id.IloscInfoTextView);
-        iloscinfo=findViewById(R.id.iloscInfoTextView);
+        imageLogoInfo=findViewById(R.id.logoinfoimageview);
+        textImieInfo=findViewById(R.id.imieInfoTextVIew);
+        textNazwiskoInfo=findViewById(R.id.nazwiskoInfoTextView);
+        textEmailInfo=findViewById(R.id.emailInfoTextView);
+        textGodzinaInfo=findViewById(R.id.godzinaInfoTextView);
+        textDataInfo=findViewById(R.id.dataInfoTextView);
+        textTelefonInfo=findViewById(R.id.telefonInfoTextView);
+        textStolikInfo=findViewById(R.id.stolikInfoTextView);
+        textIloscInfo=findViewById(R.id.iloscInfoTextView);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseStorage=FirebaseStorage.getInstance();
@@ -57,14 +49,14 @@ public class RezerwacjaInfoDesignPatternsActivity extends AppCompatActivity {
         kod=rezerwacja.getKod();
         downloadImage();
 
-        imieinfo.setText(rezerwacja.getImie());
-        nazwiskoinfo.setText(rezerwacja.getNazwisko());
-        emailinfo.setText(rezerwacja.getEmail());
-        godzinainfo.setText(rezerwacja.getGodzina());
-        datainfo.setText(rezerwacja.getData());
-        telefoninfo.setText(rezerwacja.getTelefon());
-        stolikinfo.setText(rezerwacja.getStolik());
-        iloscinfo.setText(rezerwacja.getIlosc());
+        textImieInfo.setText(rezerwacja.getImie());
+        textNazwiskoInfo.setText(rezerwacja.getNazwisko());
+        textEmailInfo.setText(rezerwacja.getEmail());
+        textGodzinaInfo.setText(rezerwacja.getGodzina());
+        textDataInfo.setText(rezerwacja.getData());
+        textTelefonInfo.setText(rezerwacja.getTelefon());
+        textStolikInfo.setText(rezerwacja.getStolik());
+        textIloscInfo.setText(rezerwacja.getIlosc());
     }
 
     public void downloadImage(){
@@ -76,12 +68,11 @@ public class RezerwacjaInfoDesignPatternsActivity extends AppCompatActivity {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap bitmap= BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                logoInfo.setImageBitmap(bitmap);
+                imageLogoInfo.setImageBitmap(bitmap);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-
             }
         });
     }
