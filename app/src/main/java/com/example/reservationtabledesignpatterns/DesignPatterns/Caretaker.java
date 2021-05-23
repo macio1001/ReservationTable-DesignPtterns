@@ -1,7 +1,6 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.DesignPatterns;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Caretaker {
     ArrayList<Memento> zapiszstatus=new ArrayList<Memento>();

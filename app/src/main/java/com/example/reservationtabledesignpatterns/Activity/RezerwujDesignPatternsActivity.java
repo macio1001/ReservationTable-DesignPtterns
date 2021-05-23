@@ -1,4 +1,4 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,12 +13,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.reservationtabledesignpatterns.DesignPatterns.Singleton;
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
+import com.example.reservationtabledesignpatterns.RezerwacjaUtils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,21 +32,18 @@ import java.util.Calendar;
 
 public class RezerwujDesignPatternsActivity extends AppCompatActivity {
 
+    private static final String TAG="RezerwujActivity";
     TextView textWybierzDate,textIloscOsob,textWybranaData,textWybierzGodzine,textWybranaGodzina,textOstrzezenie;
     Button buttonDalej;
     RadioGroup radioGroupIlosOosob;
-    RadioButton radiobtnPierwszaOsoba,radiobtnDrugaOsoba,radiobtnTrzeciaOsoba,radiobtnCzwartaOsoba,radiobtnPiataOsoba,radiobtnSzostaOsoba;
 
     DatePickerDialog.OnDateSetListener onDateSetListener;
 
     String Minuta;
-    String wybranadata,wybranagodzina,Wybrana;
-    int ilosc=0,minute,Minute,Godzina;
+    String wybranaData,wybranaGodzina,wybrana;
+    int ilosc=0,minute,Minute;
     FirebaseFirestore firebaseFirestore;
     Boolean zajety1=false,zajety2=false,zajety3=false,zajety4=false,zajety5=false,zajety6=false,WylaczStolik1=false,WylaczStolik2=false,WylaczStolik4=false,WylaczStolik5=false;
-
-    private static final String TAG="RezerwujActivity";
-
 
     Singleton singleton=Singleton.getInstance();
 
@@ -59,12 +59,6 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
         textWybranaData=findViewById(R.id.wybranadataTextView);
         textWybranaGodzina=findViewById(R.id.wybranagodzinaTextView);
         textOstrzezenie=findViewById(R.id.ostrzezenieTextView);
-        radiobtnPierwszaOsoba=findViewById(R.id.pierwszaosobaradioButton);
-        radiobtnDrugaOsoba=findViewById(R.id.drugaosobaradioButton);
-        radiobtnTrzeciaOsoba=findViewById(R.id.trzeciaosobaradioButton);
-        radiobtnCzwartaOsoba=findViewById(R.id.czwartaosobaradioButton);
-        radiobtnPiataOsoba=findViewById(R.id.piataosobaradioButton);
-        radiobtnSzostaOsoba=findViewById(R.id.szostaosobaradioButton);
         buttonDalej=findViewById(R.id.dalejBtn);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
@@ -90,9 +84,9 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
         onDateSetListener=new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int rok, int miesiac, int dzien) {
-                String nazwaMesiaca=RezerwacjaUtils.getNazwaMiesiaca(miesiac);
+                String nazwaMesiaca= RezerwacjaUtils.getNazwaMiesiaca(miesiac);
                 textWybranaData.setText(dzien+" "+nazwaMesiaca+" "+rok);
-                wybranadata=dzien+" "+nazwaMesiaca+" "+rok;
+                wybranaData=dzien+" "+nazwaMesiaca+" "+rok;
             }
         };
 
@@ -121,9 +115,9 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                         }else{
                             Minuta=String.valueOf(minuta);
                         }
-                        wybranagodzina=godzina+":"+Minuta;
+                        wybranaGodzina=godzina+":"+Minuta;
                         textWybranaGodzina.setText(godzina+":"+Minuta);
-                        Wybrana=wybranagodzina;
+                        wybrana=wybranaGodzina;
                         Minute=Integer.valueOf(Minuta);
                         minute=Minute-15;
 
@@ -141,10 +135,10 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                             }else{
                                 Minuta=String.valueOf(minute);
                             }
-                            wybranagodzina=godzina+":"+Minuta;
-                            Log.d(TAG,"Lala: "+wybranagodzina);
-                            wybranagodzina=godzina+":"+minute;
-                            firebaseFirestore.collection("Stoliknr1").whereEqualTo("Data", wybranadata).whereEqualTo("Godzina", wybranagodzina).get()
+                            wybranaGodzina=godzina+":"+Minuta;
+                            Log.d(TAG,"Lala: "+wybranaGodzina);
+                            wybranaGodzina=godzina+":"+minute;
+                            firebaseFirestore.collection("Stoliknr1").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -164,7 +158,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
-                            firebaseFirestore.collection("Stoliknr2").whereEqualTo("Data", wybranadata).whereEqualTo("Godzina", wybranagodzina).get()
+                            firebaseFirestore.collection("Stoliknr2").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -184,7 +178,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
-                            firebaseFirestore.collection("Stoliknr3").whereEqualTo("Data", wybranadata).whereEqualTo("Godzina", wybranagodzina).get()
+                            firebaseFirestore.collection("Stoliknr3").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -204,7 +198,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
-                            firebaseFirestore.collection("Stoliknr4").whereEqualTo("Data", wybranadata).whereEqualTo("Godzina", wybranagodzina).get()
+                            firebaseFirestore.collection("Stoliknr4").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -224,7 +218,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
-                            firebaseFirestore.collection("Stoliknr5").whereEqualTo("Data", wybranadata).whereEqualTo("Godzina", wybranagodzina).get()
+                                    firebaseFirestore.collection("Stoliknr5").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -244,7 +238,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
-                            firebaseFirestore.collection("Stoliknr6").whereEqualTo("Data", wybranadata).whereEqualTo("Godzina", wybranagodzina).get()
+                            firebaseFirestore.collection("Stoliknr6").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -349,18 +343,18 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
         buttonDalej.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                wybranagodzina=Wybrana;
-                if ((wybranadata == null) && (wybranagodzina == null) && (ilosc == 0)) {
+                wybranaGodzina=wybrana;
+                if ((wybranaData == null) && (wybranaGodzina == null) && (ilosc == 0)) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru obowiązkowych opcji!", Toast.LENGTH_SHORT).show();
-                } else if (wybranagodzina == null) {
+                } else if (wybranaGodzina == null) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru godziny!", Toast.LENGTH_SHORT).show();
-                } else if (wybranadata == null) {
+                } else if (wybranaData == null) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru daty!", Toast.LENGTH_SHORT).show();
                 } else if (ilosc == 0) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru ilosci osob!!", Toast.LENGTH_SHORT).show();
                 }else {
-                    singleton.przekazdaterezerwacji(wybranadata);
-                    singleton.przekazgodzinerezerwacji(wybranagodzina);
+                    singleton.przekazdaterezerwacji(wybranaData);
+                    singleton.przekazgodzinerezerwacji(wybranaGodzina);
                     singleton.przekazilosc(ilosc);
                     singleton.przekazwylaczStolik1(WylaczStolik1);
                     singleton.przekazwylaczStolik2(WylaczStolik2);

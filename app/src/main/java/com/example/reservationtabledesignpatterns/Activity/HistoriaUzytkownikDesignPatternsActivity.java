@@ -1,4 +1,4 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.CalendarView;
 
+import com.example.reservationtabledesignpatterns.Adapter.HistoriaUzytkownikDesignPatternsAdapter;
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
+import com.example.reservationtabledesignpatterns.RezerwacjaUtils;
+import com.example.reservationtabledesignpatterns.DesignPatterns.Singleton;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,7 +55,7 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
         calendarKalendarzUzytkownik.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int rok, int miesiac, int dzien) {
-                String nazwaMesiaca=RezerwacjaUtils.getNazwaMiesiaca(miesiac);
+                String nazwaMesiaca= RezerwacjaUtils.getNazwaMiesiaca(miesiac);
                 historiaUzytkownikList.clear();
                 recyclerviewKalenadarzUzytkownik.getAdapter().notifyDataSetChanged();
 

@@ -1,4 +1,4 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.reservationtabledesignpatterns.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuRestauracjaDesignPatternsActivity extends AppCompatActivity {
@@ -31,35 +30,35 @@ public class MenuRestauracjaDesignPatternsActivity extends AppCompatActivity {
         buttonRezerwacje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this,HistoriaDesignPatternsActivity.class));
+                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this, HistoriaDesignPatternsActivity.class));
             }
         });
 
         buttonSkaner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this,SkanerDesignPatternsActivity.class));
+                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this, SkanerDesignPatternsActivity.class));
             }
         });
 
         buttonWuszykiwanie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this,WyszukiwanieRezerwacjiDesignPatternsActivity.class));
+                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this, WyszukiwanieRezerwacjiDesignPatternsActivity.class));
             }
         });
 
         buttonStoliki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this,StolikiOffDesignPatternsActivity.class));
+                startActivity(new Intent(MenuRestauracjaDesignPatternsActivity.this, StolikiOffDesignPatternsActivity.class));
             }
         });
     }
 
     public void Wyloguj(View view){
         firebaseAuth.signOut();
-        Intent intent=new Intent(MenuRestauracjaDesignPatternsActivity.this,LogowanieDesignPatternsActivity.class);
+        Intent intent=new Intent(MenuRestauracjaDesignPatternsActivity.this, LogowanieDesignPatternsActivity.class);
         intent.putExtra("finish",true);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

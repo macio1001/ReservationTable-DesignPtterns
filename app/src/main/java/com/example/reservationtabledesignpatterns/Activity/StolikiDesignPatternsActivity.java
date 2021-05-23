@@ -1,4 +1,4 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.reservationtabledesignpatterns.DesignPatterns.Singleton;
+import com.example.reservationtabledesignpatterns.DesignPatterns.StolikDekorator;
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
+import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,49 +26,51 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import static com.example.reservationtabledesignpatterns.R.*;
+
 public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
-    private ImageView stolik1,stolik2,stolik3,stolik4,stolik5,stolik6;
-    private TextView wyborsotlika;
-    private Button dalej;
-
-    public Stolik stolik;
-    public int ilosc1;
-    Boolean onoff1=false,onoff2=false,onoff3=false,onoff4=false,onoff5=false,onoff6=false;
-    FirebaseFirestore firebaseFirestore;
     private static final String TAG="StolikiActivity";
+    StolikDekorator imageStolikPierwszy,imageStolikDrugi,imageStolikTrzeci,imageStolikCzwarty,imageStolikPiaty,imageStolikSzosty;
+    Button buttonDalej;
 
-    String wybranagodzina1,wybranadata1;
-    Boolean WylaczStoliknr1,WylaczStoliknr2,WylaczStoliknr4,WylaczStoliknr5;
+    Stolik stolik;
+    Boolean onOffPierwszy=false,onOffDrugi=false,onOffTrzeci=false,onOffCzwarty=false,onOffPiaty=false,onOffSzosty=false;
+
+    FirebaseFirestore firebaseFirestore;
     Singleton singleton=Singleton.getInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.stolikidesignpatterns);
+        setContentView(layout.stolikidesignpatterns);
 
-        stolik1=findViewById(R.id.stolik1);
-        stolik2=findViewById(R.id.stolik2);
-        stolik3=findViewById(R.id.stolik3);
-        stolik4=findViewById(R.id.stolik4);
-        stolik5=findViewById(R.id.stolik5);
-        stolik6=findViewById(R.id.stolik6);
-        dalej=findViewById(R.id.dalejbutton);
-        wyborsotlika=findViewById(R.id.wyborstolika);
+        imageStolikPierwszy= new StolikDekorator(new Stolik(1), findViewById(id.stolik1));
+        imageStolikDrugi= new StolikDekorator(new Stolik(2), findViewById(id.stolik2));
+        imageStolikTrzeci= new StolikDekorator(new Stolik(1), findViewById(id.stolik3));
+        imageStolikCzwarty= new StolikDekorator(new Stolik(1), findViewById(id.stolik4));
+        imageStolikPiaty= new StolikDekorator(new Stolik(1), findViewById(id.stolik5));
+        imageStolikSzosty= new StolikDekorator(new Stolik(1), findViewById(id.stolik6));
+        buttonDalej=findViewById(id.dalejbutton);
 
         this.firebaseFirestore=FirebaseFirestore.getInstance();
 
-        wybranadata1=singleton.pokazdaterezerwacji();
-        wybranagodzina1=singleton.pokazgodzinerezerwacji();
-        ilosc1=singleton.pokazilosc();
-        WylaczStoliknr1=singleton.pokazwylaczStolik1();
-        WylaczStoliknr2=singleton.pokazwylaczStolik2();
-        WylaczStoliknr4=singleton.pokazwylaczStolik4();
-        WylaczStoliknr5=singleton.pokazwylaczStolik5();
+        String wybranaData=singleton.pokazdaterezerwacji();
+        String wybranaGodzina=singleton.pokazgodzinerezerwacji();
+        int ilosc=singleton.pokazilosc();
+        Boolean wylaczStolikPierwszy=singleton.pokazwylaczStolik1();
+        Boolean wylaczStolikDrugi=singleton.pokazwylaczStolik2();
+        Boolean wylaczStolikCzwarty=singleton.pokazwylaczStolik4();
+        Boolean wylaczStolikPiaty=singleton.pokazwylaczStolik5();
 
 
-        opcjestolikow();
+        imageStolikPierwszy.stanPoczatkowyStolikow();
+        imageStolikDrugi.stanPoczatkowyStolikow();
+        imageStolikTrzeci.stanPoczatkowyStolikow();
+        imageStolikCzwarty.stanPoczatkowyStolikow();
+        imageStolikPiaty.stanPoczatkowyStolikow();
+        imageStolikSzosty.stanPoczatkowyStolikow();
 
         wylaczonystolik1();
         wylaczonystolik2();
@@ -74,12 +80,10 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         wylaczonystolik6();
 
 
-        if(ilosc1==1 || ilosc1==2){
-            stolik1.setBackgroundColor(Color.GREEN);
-            stolik1.setClickable(true);
-            stolik2.setBackgroundColor(Color.GREEN);
-            stolik2.setClickable(true);
-            firebaseFirestore.collection("Stoliknr1").whereEqualTo("Data",wybranadata1).whereEqualTo("Godzina",wybranagodzina1).get()
+        if(ilosc==1 || ilosc==2){
+            imageStolikPierwszy.wolne();
+            imageStolikDrugi.wolne();
+            firebaseFirestore.collection("Stoliknr1").whereEqualTo("Data",wybranaData).whereEqualTo("Godzina",wybranaGodzina).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -89,8 +93,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                                 String documentId=rezerwacjaDesignPatterns.getDocumentId();
 
                                 if(documentId!=null){
-                                    stolik1.setBackgroundColor(Color.RED);
-                                    stolik1.setClickable(false);
+                                    imageStolikPierwszy.zajete();
                                 }
                             }
                         }
@@ -100,7 +103,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                     Log.d(TAG,e.toString());
                 }
             });
-            firebaseFirestore.collection("Stoliknr2").whereEqualTo("Data",wybranadata1).whereEqualTo("Godzina",wybranagodzina1).get()
+            firebaseFirestore.collection("Stoliknr2").whereEqualTo("Data",wybranaData).whereEqualTo("Godzina",wybranaGodzina).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -110,8 +113,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                                 String documentId=rezerwacjaDesignPatterns.getDocumentId();
 
                                 if(documentId!=null){
-                                    stolik2.setBackgroundColor(Color.RED);
-                                    stolik2.setClickable(false);
+                                    imageStolikPierwszy.zajete();
                                 }
                             }
                         }
@@ -122,10 +124,9 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                 }
             });
         }
-        else if(ilosc1==3){
-            stolik3.setBackgroundColor(Color.GREEN);
-            stolik3.setClickable(true);
-            firebaseFirestore.collection("Stoliknr3").whereEqualTo("Data",wybranadata1).whereEqualTo("Godzina",wybranagodzina1).get()
+        else if(ilosc==3){
+            imageStolikTrzeci.wolne();
+            firebaseFirestore.collection("Stoliknr3").whereEqualTo("Data",wybranaData).whereEqualTo("Godzina",wybranaGodzina).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -136,8 +137,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
                                 if(documentId!=null){
                                     if(documentId!=null){
-                                        stolik3.setBackgroundColor(Color.RED);
-                                        stolik3.setClickable(false);
+                                        imageStolikTrzeci.zajete();
                                     }
                                 }
                             }
@@ -149,12 +149,10 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                 }
             });
         }
-        else if(ilosc1==4){
-            stolik4.setBackgroundColor(Color.GREEN);
-            stolik4.setClickable(true);
-            stolik5.setBackgroundColor(Color.GREEN);
-            stolik5.setClickable(true);
-            firebaseFirestore.collection("Stoliknr4").whereEqualTo("Data",wybranadata1).whereEqualTo("Godzina",wybranagodzina1).get()
+        else if(ilosc==4){
+            imageStolikCzwarty.wolne();
+            imageStolikPiaty.wolne();
+            firebaseFirestore.collection("Stoliknr4").whereEqualTo("Data",wybranaData).whereEqualTo("Godzina",wybranaGodzina).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -165,8 +163,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
                                 if(documentId!=null){
                                     if(documentId!=null){
-                                        stolik4.setBackgroundColor(Color.RED);
-                                        stolik4.setClickable(false);
+                                        imageStolikCzwarty.zajete();
                                     }
                                 }
                             }
@@ -178,7 +175,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                 }
             });
 
-            firebaseFirestore.collection("Stoliknr5").whereEqualTo("Data",wybranadata1).whereEqualTo("Godzina",wybranagodzina1).get()
+            firebaseFirestore.collection("Stoliknr5").whereEqualTo("Data",wybranaData).whereEqualTo("Godzina",wybranaGodzina).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -189,8 +186,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
                                 if(documentId!=null){
                                     if(documentId!=null){
-                                        stolik5.setBackgroundColor(Color.RED);
-                                        stolik5.setClickable(false);
+                                        imageStolikPiaty.zajete();
                                     }
                                 }
                             }
@@ -202,10 +198,9 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                 }
             });
         }
-        if(ilosc1==5 || ilosc1==6){
-            stolik6.setBackgroundColor(Color.GREEN);
-            stolik6.setClickable(true);
-            firebaseFirestore.collection("Stoliknr6").whereEqualTo("Data",wybranadata1).whereEqualTo("Godzina",wybranagodzina1).get()
+        if(ilosc==5 || ilosc==6){
+            imageStolikSzosty.wolne();
+            firebaseFirestore.collection("Stoliknr6").whereEqualTo("Data",wybranaData).whereEqualTo("Godzina",wybranaGodzina).get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -216,8 +211,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
                                 if(documentId!=null){
                                     if(documentId!=null){
-                                        stolik6.setBackgroundColor(Color.RED);
-                                        stolik6.setClickable(false);
+                                        imageStolikSzosty.zajete();
                                     }
                                 }
                             }
@@ -230,25 +224,17 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
             });
         }
 
-        if(WylaczStoliknr1==true){
-            stolik1.setBackgroundColor(Color.GRAY);
-            stolik1.setClickable(false);
-            Log.d(TAG,"Lalala:" + WylaczStoliknr1);
-        }else if(WylaczStoliknr2==true){
-            stolik2.setBackgroundColor(Color.GRAY);
-            stolik2.setClickable(false);
-            Log.d(TAG,"Lalala:" + WylaczStoliknr2);
-        }else if(WylaczStoliknr4==true){
-            stolik4.setBackgroundColor(Color.GRAY);
-            stolik4.setClickable(false);
-            Log.d(TAG,"Lalala:" + WylaczStoliknr4);
-        }else if(WylaczStoliknr5==true){
-            stolik5.setBackgroundColor(Color.GRAY);
-            stolik5.setClickable(false);
-            Log.d(TAG,"Lalala:" + WylaczStoliknr5);
+        if(wylaczStolikPierwszy==true){
+            imageStolikPierwszy.niedostepne();
+        }else if(wylaczStolikDrugi==true){
+            imageStolikDrugi.niedostepne();
+        }else if(wylaczStolikCzwarty==true){
+            imageStolikCzwarty.niedostepne();
+        }else if(wylaczStolikPiaty==true){
+            imageStolikPiaty.niedostepne();
         }
 
-        stolik1.setOnClickListener(new View.OnClickListener() {
+        imageStolikPierwszy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stolik=new Stolik(1);
@@ -256,7 +242,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        stolik2.setOnClickListener(new View.OnClickListener() {
+        imageStolikDrugi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stolik=new Stolik(2);
@@ -265,7 +251,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         });
 
 
-        stolik3.setOnClickListener(new View.OnClickListener() {
+        imageStolikTrzeci.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stolik=new Stolik(3);
@@ -273,7 +259,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        stolik4.setOnClickListener(new View.OnClickListener() {
+        imageStolikCzwarty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stolik=new Stolik(4);
@@ -281,7 +267,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        stolik5.setOnClickListener(new View.OnClickListener() {
+        imageStolikPiaty.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 stolik=new Stolik(5);
@@ -289,7 +275,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        stolik6.setOnClickListener(new View.OnClickListener() {
+        imageStolikSzosty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stolik=new Stolik(6);
@@ -297,7 +283,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
             }
         });
 
-        dalej.setOnClickListener(new View.OnClickListener() {
+        buttonDalej.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(stolik==null){
@@ -311,29 +297,6 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         });
     }
 
-    private void opcjestolikow() {
-        stolik1.setVisibility(View.INVISIBLE);
-        stolik2.setVisibility(View.INVISIBLE);
-        stolik3.setVisibility(View.INVISIBLE);
-        stolik4.setVisibility(View.INVISIBLE);
-        stolik5.setVisibility(View.INVISIBLE);
-        stolik6.setVisibility(View.INVISIBLE);
-
-        stolik1.setClickable(false);
-        stolik2.setClickable(false);
-        stolik3.setClickable(false);
-        stolik4.setClickable(false);
-        stolik5.setClickable(false);
-        stolik6.setClickable(false);
-
-        stolik1.setBackgroundColor(Color.GRAY);
-        stolik2.setBackgroundColor(Color.GRAY);
-        stolik3.setBackgroundColor(Color.GRAY);
-        stolik4.setBackgroundColor(Color.GRAY);
-        stolik5.setBackgroundColor(Color.GRAY);
-        stolik6.setBackgroundColor(Color.GRAY);
-    }
-
     private void wylaczonystolik1() {
         firebaseFirestore.collection("Stoliknr1").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -342,20 +305,20 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                onoff1 = documentSnapshot.getBoolean("OnOff");
-                                if (onoff1 == true) {
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                onOffPierwszy = documentSnapshot.getBoolean("OnOff");
+                                if (onOffPierwszy == true) {
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }else{
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                             } else {
@@ -375,20 +338,20 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                onoff2 = documentSnapshot.getBoolean("OnOff");
-                                if (onoff2 == true) {
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                onOffDrugi = documentSnapshot.getBoolean("OnOff");
+                                if (onOffDrugi == true) {
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }else{
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                             } else {
@@ -408,20 +371,20 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                onoff3 = documentSnapshot.getBoolean("OnOff");
-                                if (onoff3 == true) {
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                onOffTrzeci = documentSnapshot.getBoolean("OnOff");
+                                if (onOffTrzeci == true) {
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }else{
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                             } else {
@@ -441,20 +404,20 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                onoff4 = documentSnapshot.getBoolean("OnOff");
-                                if (onoff4 == true) {
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                onOffCzwarty = documentSnapshot.getBoolean("OnOff");
+                                if (onOffCzwarty == true) {
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }else{
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                             } else {
@@ -474,20 +437,20 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             if (documentSnapshot.exists()) {
-                                onoff5 = documentSnapshot.getBoolean("OnOff");
-                                if (onoff5 == true) {
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                onOffPiaty = documentSnapshot.getBoolean("OnOff");
+                                if (onOffPiaty == true) {
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }else{
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }
                                 Log.d(TAG, "DocumentSnapshot data: " + documentSnapshot.getData());
                             } else {
@@ -507,20 +470,20 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             DocumentSnapshot documentSnapshot=task.getResult();
                             if(documentSnapshot.exists()){
-                                onoff6=documentSnapshot.getBoolean("OnOff");
-                                if(onoff6==true){
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
+                                onOffSzosty=documentSnapshot.getBoolean("OnOff");
+                                if(onOffSzosty==true){
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
                                 }else{
-                                    stolik1.setVisibility(View.VISIBLE);
-                                    stolik2.setVisibility(View.VISIBLE);
-                                    stolik3.setVisibility(View.VISIBLE);
-                                    stolik4.setVisibility(View.VISIBLE);
-                                    stolik5.setVisibility(View.VISIBLE);
-                                    stolik6.setVisibility(View.VISIBLE);
+                                    imageStolikPierwszy.widoczny();
+                                    imageStolikDrugi.widoczny();
+                                    imageStolikTrzeci.widoczny();
+                                    imageStolikCzwarty.widoczny();
+                                    imageStolikPiaty.widoczny();
+                                    imageStolikSzosty.widoczny();
                                 }
                                 Log.d(TAG,"DocumentSnapshot data: "+documentSnapshot.getData());
                             }else{

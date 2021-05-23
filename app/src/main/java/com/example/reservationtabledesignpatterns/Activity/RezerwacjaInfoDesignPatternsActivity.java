@@ -1,4 +1,4 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;

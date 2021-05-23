@@ -1,6 +1,8 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.DesignPatterns;
 
 import android.util.Log;
+
+import com.example.reservationtabledesignpatterns.DesignPatterns.Memento;
 
 public class Originator {
     private Boolean status;

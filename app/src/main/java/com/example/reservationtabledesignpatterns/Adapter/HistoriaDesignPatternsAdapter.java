@@ -1,10 +1,15 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.reservationtabledesignpatterns.Activity.HistoriaDesignPatternsActivity;
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
+import com.example.reservationtabledesignpatterns.Activity.RezerwacjaInfoDesignPatternsActivity;
 
 import java.util.List;
 
@@ -63,7 +68,7 @@ public class HistoriaDesignPatternsAdapter extends RecyclerView.Adapter<Historia
         @Override
         public void onClick(View view) {
             RezerwacjaDesignPatterns rezerwacjaDesignPatterns =historiaList.get(getAdapterPosition());
-            Intent intent=new Intent(historiaDesignPatternsActivity,RezerwacjaInfoDesignPatternsActivity.class);
+            Intent intent=new Intent(historiaDesignPatternsActivity, RezerwacjaInfoDesignPatternsActivity.class);
             intent.putExtra("rezerwacja",rezerwacjaDesignPatterns);
             historiaDesignPatternsActivity.startActivity(intent);
         }

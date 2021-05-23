@@ -1,4 +1,4 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +15,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.DesignPatterns.Singleton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,24 +37,22 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-import javax.xml.parsers.FactoryConfigurationError;
-
 public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
     private static final String TAG="DaneOsoboweActivity";
+    public final static int QRCodeWidth=500;
+
     EditText editImie,editNazwisko,editEmail,editTelefon,editIloscOsob,editGodzina,editData;
     Button buttonRezerwuj;
     CheckBox checkZapiszwGalerii;
     ImageView imageKodQR;
     Bitmap bitmap;
 
-    Boolean flaga;
+    Boolean flaga=false;
     String stolik,daneRezerwacji,ilosc,email;
 
     FirebaseFirestore firebaseFirestore;
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
-
-    public final static int QRCodeWidth=500;
 
     Singleton singleton=Singleton.getInstance();
 
@@ -142,8 +141,6 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                             Log.w(TAG, "Error writting document", e);
                         }
                     });
-
-
                 try {
                     bitmap = textToImageEncode(daneRezerwacji);
                     imageKodQR.setImageBitmap(bitmap);
@@ -154,13 +151,14 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                 if(flaga==true){
                     aktualizujobserver();
                 }
-
-
-                uploadImage();
+                else{
+                    uploadImage();
+                }
             }
         });
 
     }
+
     private void aktualizujobserver(){
         MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "code_scanner", null);
         Toast.makeText(DaneOsoboweDesignPatternsActivity.this, "Zapisane w galerii", Toast.LENGTH_SHORT).show();

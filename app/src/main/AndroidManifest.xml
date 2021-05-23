@@ -12,21 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WyszukiwanieRezerwacjiDesignPatternsActivity"
+        <activity android:name=".Activity.WyszukiwanieRezerwacjiDesignPatternsActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"/>
-        <activity android:name=".StolikiOffDesignPatternsActivity" />
-        <activity android:name=".StolikiDesignPatternsActivity" />
-        <activity android:name=".SkanerDesignPatternsActivity" />
-        <activity android:name=".RezerwujDesignPatternsActivity" />
-        <activity android:name=".RezerwacjaInfoDesignPatternsActivity" />
-        <activity android:name=".MenuRestauracjaDesignPatternsActivity" />
-        <activity android:name=".MenuKlientDesignPatternsActivity" />
-        <activity android:name=".HistoriaUzytkownikDesignPatternsActivity" />
-        <activity android:name=".HistoriaDesignPatternsActivity" />
-        <activity android:name=".DaneOsoboweDesignPatternsActivity" />
-        <activity android:name=".PrzypomnienieHaslaDesignPatternsActivty" />
-        <activity android:name=".RejestracjaDesignPatternsActivity" />
-        <activity android:name=".LogowanieDesignPatternsActivity">
+        <activity android:name=".Activity.StolikiOffDesignPatternsActivity" />
+        <activity android:name=".Activity.StolikiDesignPatternsActivity" />
+        <activity android:name=".Activity.SkanerDesignPatternsActivity" />
+        <activity android:name=".Activity.RezerwujDesignPatternsActivity" />
+        <activity android:name=".Activity.RezerwacjaInfoDesignPatternsActivity" />
+        <activity android:name=".Activity.MenuRestauracjaDesignPatternsActivity" />
+        <activity android:name=".Activity.MenuKlientDesignPatternsActivity" />
+        <activity android:name=".Activity.HistoriaUzytkownikDesignPatternsActivity" />
+        <activity android:name=".Activity.HistoriaDesignPatternsActivity" />
+        <activity android:name=".Activity.DaneOsoboweDesignPatternsActivity" />
+        <activity android:name=".Activity.PrzypomnienieHaslaDesignPatternsActivty" />
+        <activity android:name=".Activity.RejestracjaDesignPatternsActivity" />
+        <activity android:name=".Activity.LogowanieDesignPatternsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

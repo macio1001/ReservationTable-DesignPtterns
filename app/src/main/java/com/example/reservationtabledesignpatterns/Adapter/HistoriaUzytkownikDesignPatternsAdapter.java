@@ -1,10 +1,15 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.reservationtabledesignpatterns.Activity.HistoriaUzytkownikDesignPatternsActivity;
+import com.example.reservationtabledesignpatterns.R;
+import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
+import com.example.reservationtabledesignpatterns.Activity.RezerwacjaInfoDesignPatternsActivity;
 
 import java.util.List;
 

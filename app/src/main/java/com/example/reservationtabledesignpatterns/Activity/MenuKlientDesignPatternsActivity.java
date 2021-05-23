@@ -1,15 +1,13 @@
-package com.example.reservationtabledesignpatterns;
+package com.example.reservationtabledesignpatterns.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.reservationtabledesignpatterns.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuKlientDesignPatternsActivity extends AppCompatActivity {
@@ -29,7 +27,7 @@ public class MenuKlientDesignPatternsActivity extends AppCompatActivity {
         buttonHistoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuKlientDesignPatternsActivity.this,HistoriaUzytkownikDesignPatternsActivity.class);
+                Intent intent=new Intent(MenuKlientDesignPatternsActivity.this, HistoriaUzytkownikDesignPatternsActivity.class);
                 startActivity(intent);
             }
         });
@@ -37,14 +35,14 @@ public class MenuKlientDesignPatternsActivity extends AppCompatActivity {
         buttonRezerwuj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuKlientDesignPatternsActivity.this,RezerwujDesignPatternsActivity.class);
+                Intent intent=new Intent(MenuKlientDesignPatternsActivity.this, RezerwujDesignPatternsActivity.class);
                 startActivity(intent);
             }
         });
     }
     public void Wyloguj(View view){
         firebaseAuth.signOut();
-        Intent intent=new Intent(MenuKlientDesignPatternsActivity.this,LogowanieDesignPatternsActivity.class);
+        Intent intent=new Intent(MenuKlientDesignPatternsActivity.this, LogowanieDesignPatternsActivity.class);
         intent.putExtra("finish",true);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
