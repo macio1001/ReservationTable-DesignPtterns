@@ -3,11 +3,11 @@ package com.example.reservationtabledesignpatterns.DesignPatterns;
 public class Memento {
     private Boolean status;
 
-    public Memento(Boolean zapiszstatus){
-        status=zapiszstatus;
+    public Memento(Boolean zapiszStatus){
+        status=zapiszStatus;
     }
 
-    public Boolean getZapiszstatus(){
+    public Boolean getZapiszStatus(){
         return status;
     }
 }

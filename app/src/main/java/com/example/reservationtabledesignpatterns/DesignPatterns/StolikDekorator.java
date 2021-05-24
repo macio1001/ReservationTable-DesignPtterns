@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StolikDekorator extends Stolik {
     ImageView image;
