@@ -2,5 +2,6 @@
   <component name="IntentionManagerSettings">
     <ignoreAction name="Java/Declaration/Generate missed test methods" />
     <ignoreAction name="Other/Flip ','" />
+    <ignoreAction name="Kotlin/Simplify boolean expression" />
   </component>
 </application>
