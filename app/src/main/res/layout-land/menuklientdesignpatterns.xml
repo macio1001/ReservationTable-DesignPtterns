@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/logoimageView"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="244dp"
+        android:layout_height="119dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
         app:layout_constraintBottom_toTopOf="@+id/historiabutton"
@@ -25,14 +25,14 @@
 
     <Button
         android:id="@+id/historiabutton"
-        android:layout_width="400dp"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:text="Historia rezerwacji"
         app:layout_constraintBottom_toTopOf="@+id/rezerwujbutton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,11 +41,11 @@
 
     <Button
         android:id="@+id/rezerwujbutton"
-        android:layout_width="400dp"
-        android:layout_height="200dp"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"

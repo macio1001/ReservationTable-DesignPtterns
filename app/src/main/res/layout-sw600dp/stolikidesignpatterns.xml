@@ -9,20 +9,21 @@
 
     <ImageView
         android:id="@+id/stolik1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="150dp"
         android:src="@mipmap/stoliknr1"
         app:layout_constraintBottom_toTopOf="@+id/stolik3"
+        app:layout_constraintEnd_toStartOf="@+id/stolik5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/stolik5"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
@@ -34,8 +35,8 @@
 
     <ImageView
         android:id="@+id/stolik3"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:src="@mipmap/stoliknr3"
@@ -46,8 +47,8 @@
 
     <ImageView
         android:id="@+id/stolik6"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:src="@mipmap/stoliknr6"
@@ -58,8 +59,8 @@
 
     <ImageView
         android:id="@+id/stolik4"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginBottom="150dp"
@@ -71,8 +72,8 @@
 
     <ImageView
         android:id="@+id/stolik2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="150dp"
