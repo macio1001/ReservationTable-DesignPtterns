@@ -40,7 +40,7 @@ public class Singleton {
         return email;
     }
 
-    public void przekazEmail(String Email){
+    public void przekazEmail(String email){
         this.email=email;
     }
 

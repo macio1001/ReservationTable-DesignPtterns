@@ -81,6 +81,8 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
         stolik = String.valueOf(wybranyStolik);
         ilosc = String.valueOf(wybranaIloscOsob);
 
+        Log.d(TAG,"Lala:"+emailUzytkownika);
+
         editIloscOsob.setText(String.valueOf(wybranaIloscOsob));
         editGodzina.setText(wybranaGodzina);
         editData.setText(wybranaData);
@@ -121,7 +123,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
 
                 daneRezerwacyjne.put("Imie", imie);
                 daneRezerwacyjne.put("Nazwisko", nazwisko);
-                daneRezerwacyjne.put("Email", emailUzytkownika);
+                daneRezerwacyjne.put("Email", email);
                 daneRezerwacyjne.put("Telefon", telefon);
                 daneRezerwacyjne.put("Data", wybranaData);
                 daneRezerwacyjne.put("Godzina", wybranaGodzina);
