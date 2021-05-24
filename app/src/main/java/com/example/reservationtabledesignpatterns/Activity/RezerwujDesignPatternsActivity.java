@@ -43,7 +43,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
     String wybranaData,wybranaGodzina,wybrana;
     int ilosc=0,minute,Minute;
     FirebaseFirestore firebaseFirestore;
-    Boolean zajety1=false,zajety2=false,zajety3=false,zajety4=false,zajety5=false,zajety6=false,WylaczStolik1=false,WylaczStolik2=false,WylaczStolik4=false,WylaczStolik5=false;
+    Boolean zajety1=false,zajety2=false,zajety3=false,zajety4=false,zajety5=false,zajety6=false,wylaczStolikPierwszy=false,wylaczStolikDrugi=false,wylaczStolikCzwarty=false,wylaczStolikPiaty=false;
 
     Singleton singleton=Singleton.getInstance();
 
@@ -138,26 +138,29 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                             wybranaGodzina=godzina+":"+Minuta;
                             Log.d(TAG,"Lala: "+wybranaGodzina);
                             wybranaGodzina=godzina+":"+minute;
-                            firebaseFirestore.collection("Stoliknr1").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
-                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                                RezerwacjaDesignPatterns rezerwacjaDesignPatterns = documentSnapshot.toObject(RezerwacjaDesignPatterns.class);
-                                                rezerwacjaDesignPatterns.setDocumentId(documentSnapshot.getId());
-                                                String documentId = rezerwacjaDesignPatterns.getDocumentId();
 
-                                                if (documentId != null) {
-                                                    zajety1 = true;
+
+                            firebaseFirestore.collection("Stoliknr"+i).whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                    RezerwacjaDesignPatterns rezerwacjaDesignPatterns = documentSnapshot.toObject(RezerwacjaDesignPatterns.class);
+                                                    rezerwacjaDesignPatterns.setDocumentId(documentSnapshot.getId());
+                                                    String documentId = rezerwacjaDesignPatterns.getDocumentId();
+                                                    if (documentId != null) {
+                                                            zajety1=true;
+
+                                                    }
                                                 }
                                             }
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, e.toString());
-                                }
-                            });
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, e.toString());
+                                    }
+                                });
+                            }
                             firebaseFirestore.collection("Stoliknr2").whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
@@ -260,7 +263,6 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                             });
                             minute+=1;
                         }
-                    }
                 },godzina,minuta,true);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
                 timePickerDialog.show();
@@ -274,28 +276,20 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                     case R.id.pierwszaosobaradioButton:
                         ilosc=1;
                         if(zajety1==true && zajety2==false){
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+zajety1);
-                            WylaczStolik1=true;
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik1);
+                            wylaczStolikPierwszy=true;
                         }else if(zajety1==false && zajety2==true){
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+zajety2);
-                            WylaczStolik2=true;
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik2);
+                            wylaczStolikDrugi=true;
                         }else if(zajety1==true && zajety2==true){
-                            textOstrzezenie.setText("W tym terminie stoliki są zajęte");
+                            textOstrzezenie.setText("W tym terminie stoliki dla 1 lub 2 osób są zajęte.Proszę wybrać inną godzinę");
                             buttonDalej.setClickable(false);
                         }
                         break;
                     case R.id.drugaosobaradioButton:
                         ilosc=2;
                         if(zajety1==true && zajety2==false){
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+zajety1);
-                            WylaczStolik1=true;
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik1);
+                            wylaczStolikPierwszy=true;
                         }else if(zajety1==false && zajety2==true){
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+zajety2);
-                            WylaczStolik2=true;
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik2);
+                            wylaczStolikDrugi=true;
                         }else if(zajety1==true && zajety2==true){
                             textOstrzezenie.setText("O tej godzinie stoliki dla 2 osób są zajęte!Proszę wybrać inną godzinę!");
                             buttonDalej.setClickable(false);
@@ -311,13 +305,9 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                     case R.id.czwartaosobaradioButton:
                         ilosc=4;
                         if(zajety4==true && zajety5==false){
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+zajety4);
-                            WylaczStolik4=true;
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik4);
+                            wylaczStolikCzwarty=true;
                         }else if(zajety4==false && zajety5==true){
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+zajety5);
-                            WylaczStolik5=true;
-                            Log.d(TAG,"Lalala: Gotowosc jest:"+WylaczStolik5);
+                            wylaczStolikPiaty=true;
                         }else if(zajety4==true && zajety5==true){
                             textOstrzezenie.setText("W tym terminie stoliki dla 4 osób są zajęte! Proszę wybrać inną godzinę!");
                             buttonDalej.setClickable(false);
@@ -356,10 +346,10 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                     singleton.przekazdaterezerwacji(wybranaData);
                     singleton.przekazgodzinerezerwacji(wybranaGodzina);
                     singleton.przekazilosc(ilosc);
-                    singleton.przekazwylaczStolik1(WylaczStolik1);
-                    singleton.przekazwylaczStolik2(WylaczStolik2);
-                    singleton.przekazwylaczStolik4(WylaczStolik4);
-                    singleton.przekazwylaczStolik5(WylaczStolik5);
+                    singleton.przekazwylaczStolik1(wylaczStolikPierwszy);
+                    singleton.przekazwylaczStolik2(wylaczStolikDrugi);
+                    singleton.przekazwylaczStolik4(wylaczStolikCzwarty);
+                    singleton.przekazwylaczStolik5(wylaczStolikPiaty);
                     Intent intent = new Intent(RezerwujDesignPatternsActivity.this, StolikiDesignPatternsActivity.class);
                     startActivity(intent);
                 }

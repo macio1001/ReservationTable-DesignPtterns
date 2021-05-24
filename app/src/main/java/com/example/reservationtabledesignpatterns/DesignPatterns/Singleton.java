@@ -4,13 +4,13 @@ public class Singleton {
 
     private String wybranadata;
     private String wybranagodzina;
-    private String Email;
+    private String email;
     private int ilosc;
     private int stolik;
-    private Boolean WylaczStolik1;
-    private Boolean WylaczStolik2;
-    private Boolean WylaczStolik4;
-    private Boolean WylaczStolik5;
+    private Boolean wylaczStolikPierwszy;
+    private Boolean wylaczStolikDrugi;
+    private Boolean wylaczStolikCzwarty;
+    private Boolean wylaczStolikPiaty;
 
     private static Singleton instance=null;
     public static synchronized Singleton getInstance(){
@@ -23,6 +23,7 @@ public class Singleton {
     public String pokazdaterezerwacji(){
         return wybranadata;
     }
+
     public void przekazdaterezerwacji(String wybranadata){
         this.wybranadata=wybranadata;
     }
@@ -36,11 +37,11 @@ public class Singleton {
     }
 
     public String pokazEmail(){
-        return Email;
+        return email;
     }
 
-    public void przekazEmail(String Email){
-        this.Email=Email;
+    public void przekazEmail(String email){
+        this.email=email;
     }
 
     public int pokazilosc(){
@@ -61,34 +62,34 @@ public class Singleton {
     }
 
     public Boolean pokazwylaczStolik1(){
-        return WylaczStolik1;
+        return wylaczStolikPierwszy;
     }
 
-    public void przekazwylaczStolik1(Boolean WylaczStolik1){
-        this.WylaczStolik1=WylaczStolik1;
+    public void przekazwylaczStolik1(Boolean wylaczStolikPierwszy){
+        this.wylaczStolikPierwszy=wylaczStolikPierwszy;
     }
 
     public Boolean pokazwylaczStolik2(){
-        return WylaczStolik2;
+        return wylaczStolikDrugi;
     }
 
-    public void przekazwylaczStolik2(Boolean WylaczStolik2){
-        this.WylaczStolik2=WylaczStolik2;
+    public void przekazwylaczStolik2(Boolean wylaczStolikDrugi){
+        this.wylaczStolikDrugi=wylaczStolikDrugi;
     }
 
     public Boolean pokazwylaczStolik4(){
-        return WylaczStolik4;
+        return wylaczStolikCzwarty;
     }
 
-    public void przekazwylaczStolik4(Boolean WylaczStolik4){
-        this.WylaczStolik4=WylaczStolik4;
+    public void przekazwylaczStolik4(Boolean wylaczStolikCzwarty){
+        this.wylaczStolikCzwarty=wylaczStolikCzwarty;
     }
 
     public Boolean pokazwylaczStolik5(){
-        return WylaczStolik5;
+        return wylaczStolikPiaty;
     }
 
-    public void przekazwylaczStolik5(Boolean WylaczStolik5){
-        this.WylaczStolik5=WylaczStolik5;
+    public void przekazwylaczStolik5(Boolean wylaczStolikPiaty){
+        this.wylaczStolikPiaty=wylaczStolikPiaty;
     }
 }

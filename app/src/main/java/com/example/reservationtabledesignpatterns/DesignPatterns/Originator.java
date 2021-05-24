@@ -7,19 +7,19 @@ import com.example.reservationtabledesignpatterns.DesignPatterns.Memento;
 public class Originator {
     private Boolean status;
 
-    public Boolean ustaw(Boolean nowystatus){
-        Log.d("Zmiana statusu:","Nowy status"+nowystatus);
-        this.status=nowystatus;
-        return nowystatus;
+    public Boolean ustaw(Boolean nowyStatus){
+        Log.d("Zmiana statusu:","Nowy status"+nowyStatus);
+        this.status=nowyStatus;
+        return nowyStatus;
     }
 
-    public Memento zapiszwMemento(){
+    public Memento zapiszWMemento(){
         Log.d("Zmiana statusu:","Zapisywanie do Memento");
         return new Memento(status);
     }
 
-    public Boolean przywracaniezMemento(Memento memento){
-        status=memento.getZapiszstatus();
+    public Boolean przywracanieZMemento(Memento memento){
+        status=memento.getZapiszStatus();
         Log.d("Zmiana statusu:","'Przywrazanie z Memento"+status);
         return status;
     }
