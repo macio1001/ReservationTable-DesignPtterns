@@ -153,9 +153,7 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
                 if(flaga==true){
                     aktualizujobserver();
                 }
-                else{
-                    uploadImage();
-                }
+                uploadImage();
             }
         });
 
