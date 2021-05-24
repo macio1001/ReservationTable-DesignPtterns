@@ -23,6 +23,7 @@ public class Singleton {
     public String pokazdaterezerwacji(){
         return wybranadata;
     }
+
     public void przekazdaterezerwacji(String wybranadata){
         this.wybranadata=wybranadata;
     }
