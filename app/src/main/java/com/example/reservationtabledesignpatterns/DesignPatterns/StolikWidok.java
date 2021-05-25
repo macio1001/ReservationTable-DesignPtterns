@@ -4,8 +4,8 @@ import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.example.reservationtabledesignpatterns.DesignPatterns.Caretaker;
-import com.example.reservationtabledesignpatterns.DesignPatterns.Originator;
+import com.example.reservationtabledesignpatterns.DesignPatterns.Dozorca;
+import com.example.reservationtabledesignpatterns.DesignPatterns.Inicjator;
 import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,29 +24,28 @@ public class StolikWidok extends Stolik {
     private boolean onOff;
     private boolean stolikOn;
 
-    public StolikWidok(Stolik stolik,CheckBox checkBox){
-        this.stolik=stolik;
-        this.checkBox=checkBox;
+    public StolikWidok(Stolik stolik, CheckBox checkBox) {
+        this.stolik = stolik;
+        this.checkBox = checkBox;
     }
 
-    public void setOnChangeListener(){
+    public void setOnChangeListener() {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        Caretaker caretaker = new Caretaker();
-        Originator originator = new Originator();
-        originator.ustaw(false);
-        caretaker.dodajMemento(originator.zapiszWMemento());
+        Dozorca dozorca = new Dozorca();
+        Inicjator inicjator = new Inicjator();
+        inicjator.ustaw(false);
+        dozorca.dodajMemento(inicjator.zapiszWMemento());
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (checkBox.isChecked()) {
-                    firebaseFirestore.collection("Stoliknr"+stolik.getNumer()).document("Status").update("OnOff", true)
+                    firebaseFirestore.collection("Stoliknr" + stolik.getNumer()).document("Status").update("OnOff", true)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    onOff = originator.ustaw(true);
-                                    Log.d(TAG,"Lalala:"+stolik.getNumer()+""+onOff);
-                                    caretaker.dodajMemento(originator.zapiszWMemento());
+                                    onOff = inicjator.ustaw(true);
+                                    dozorca.dodajMemento(inicjator.zapiszWMemento());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -55,12 +54,11 @@ public class StolikWidok extends Stolik {
                         }
                     });
                 } else {
-                    firebaseFirestore.collection("Stoliknr"+stolik.getNumer()).document("Status").update("OnOff", false)
+                    firebaseFirestore.collection("Stoliknr" + stolik.getNumer()).document("Status").update("OnOff", false)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    onOff = originator.przywracanieZMemento(caretaker.getMemento(0));
-                                    Log.d(TAG,"LalalaPrzywracanie:"+stolik.getNumer()+""+onOff);
+                                    onOff = inicjator.przywracanieZMemento(dozorca.getMemento(0));
                                     Log.d(TAG, "DocumentSnapshot succesfully uptated!");
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -72,12 +70,11 @@ public class StolikWidok extends Stolik {
                 }
             }
         });
-
     }
 
-    public void sprawdzCzyWlaczony(){
+    public void sprawdzCzyWlaczony() {
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseFirestore.collection("Stoliknr"+stolik.getNumer()).document("Status").get()
+        firebaseFirestore.collection("Stoliknr" + stolik.getNumer()).document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {

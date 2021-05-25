@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.reservationtabledesignpatterns.DesignPatterns.Memento;
 
-public class Originator {
+public class Inicjator {
     private Boolean status;
 
     public Boolean ustaw(Boolean nowyStatus){

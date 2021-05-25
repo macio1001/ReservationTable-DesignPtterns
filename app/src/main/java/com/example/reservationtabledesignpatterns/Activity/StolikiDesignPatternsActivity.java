@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.reservationtabledesignpatterns.DesignPatterns.Singleton;
 import com.example.reservationtabledesignpatterns.DesignPatterns.StolikDekorator;
+import com.example.reservationtabledesignpatterns.DesignPatterns.StolikWidok;
 import com.example.reservationtabledesignpatterns.R;
 import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
 import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
@@ -55,6 +56,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         imageStolikCzwarty= new StolikDekorator(new Stolik(1), findViewById(id.stolik4));
         imageStolikPiaty= new StolikDekorator(new Stolik(1), findViewById(id.stolik5));
         imageStolikSzosty= new StolikDekorator(new Stolik(1), findViewById(id.stolik6));
+
         buttonDalej=findViewById(id.dalejbutton);
 
         this.firebaseFirestore=FirebaseFirestore.getInstance();

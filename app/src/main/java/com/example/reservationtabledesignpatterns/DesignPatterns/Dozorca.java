@@ -2,7 +2,7 @@ package com.example.reservationtabledesignpatterns.DesignPatterns;
 
 import java.util.ArrayList;
 
-public class Caretaker {
+public class Dozorca {
     ArrayList<Memento> zapiszStatus=new ArrayList<Memento>();
 
     public void dodajMemento(Memento memento){
