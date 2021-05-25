@@ -4,26 +4,28 @@ import java.io.Serializable;
 
 public class RezerwacjaDesignPatterns implements Serializable {
     public String documentId;
-    private String Imie;
-    private String Nazwisko;
-    private String Stolik;
-    private String Godzina;
-    private String Data;
-    private String Email;
-    private String Telefon;
-    private String Ilosc;
-    private String Kod;
+    private String imie;
+    private String nazwisko;
+    private String stolik;
+    private String godzina;
+    private String data;
+    private String email;
+    private String telefon;
+    private String ilosc;
+    private String kod;
 
     public RezerwacjaDesignPatterns(){
 
     }
 
-    public RezerwacjaDesignPatterns(String Imie, String Nazwisko, String Stolik, String Godzina, String Ilosc,String Telefon,String Email,String Data){
-        this.Imie=Imie;
-        this.Nazwisko=Nazwisko;
-        this.Stolik=Stolik;
-        this.Godzina=Godzina;
-        this.Ilosc=Ilosc;
+    public RezerwacjaDesignPatterns(String imie, String nazwisko, String stolik, String godzina, String ilosc,String telefon,String email,String data){
+        this.imie=imie;
+        this.nazwisko=nazwisko;
+        this.stolik=stolik;
+        this.godzina=godzina;
+        this.ilosc=ilosc;
+        this.data=data;
+        this.telefon=telefon;
     }
 
     public String getDocumentId(){
@@ -35,74 +37,74 @@ public class RezerwacjaDesignPatterns implements Serializable {
     }
 
     public String getImie(){
-        return Imie;
+        return imie;
     }
 
-    public void setImie(String Imie){
-        this.Imie=Imie;
+    public void setImie(String imie){
+        this.imie=imie;
     }
 
     public String getNazwisko(){
-        return Nazwisko;
+        return nazwisko;
     }
 
-    public void setNazwisko(String Nazwisko){
-        this.Nazwisko=Nazwisko;
+    public void setNazwisko(String nazwisko){
+        this.nazwisko=nazwisko;
     }
 
     public String getStolik(){
-        return Stolik;
+        return stolik;
     }
 
-    public void setStolik(String Stolik){
-        this.Stolik=Stolik;
+    public void setStolik(String stolik){
+        this.stolik=stolik;
     }
 
     public String getGodzina(){
-        return Godzina;
+        return godzina;
     }
 
     public void setGodzina(String Godzina){
-        this.Godzina=Godzina;
+        this.godzina=godzina;
     }
 
     public void setIlosc(String ilosc) {
-        Ilosc = ilosc;
+        ilosc = ilosc;
     }
 
     public String getIlosc() {
-        return Ilosc;
+        return ilosc;
     }
 
     public void setTelefon(String telefon) {
-        Telefon = telefon;
+        telefon = telefon;
     }
 
     public String getTelefon() {
-        return Telefon;
+        return telefon;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        email = email;
     }
 
     public void setData(String data) {
-        Data = data;
+        data = data;
     }
 
     public String getData() {
-        return Data;
+        return data;
     }
 
     public String getKod() {
-        return Kod;
+        return kod;
     }
 
     public void setKod(String kod) {
-        Kod = kod;
+        kod = kod;
     }
 }
