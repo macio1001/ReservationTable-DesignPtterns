@@ -39,9 +39,8 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
 
     DatePickerDialog.OnDateSetListener onDateSetListener;
 
-    String Minuta;
-    String wybranaData,wybranaGodzina,wybrana;
-    int ilosc=0,minute,Minute;
+    String wybranaData,wybranaGodzina,wybrana,minutaString;
+    int ilosc=0,minutaInt1,minutaInt;
     FirebaseFirestore firebaseFirestore;
     Boolean zajety1=false,zajety2=false,zajety3=false,zajety4=false,zajety5=false,zajety6=false,wylaczStolikPierwszy=false,wylaczStolikDrugi=false,wylaczStolikCzwarty=false,wylaczStolikPiaty=false;
 
@@ -111,33 +110,33 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                     public void onTimeSet(TimePicker timePicker, int godzina, int minuta) {
                         buttonDalej.setClickable(true);
                         if (minuta>=0 && minuta<10){
-                            Minuta="0"+minuta;
+                            minutaString="0"+minuta;
                         }else{
-                            Minuta=String.valueOf(minuta);
+                            minutaString=String.valueOf(minuta);
                         }
-                        wybranaGodzina=godzina+":"+Minuta;
-                        textWybranaGodzina.setText(godzina+":"+Minuta);
+                        wybranaGodzina=godzina+":"+minutaString;
+                        textWybranaGodzina.setText(godzina+":"+minutaString);
                         wybrana=wybranaGodzina;
-                        Minute=Integer.valueOf(Minuta);
-                        minute=Minute-15;
+                        minutaInt=Integer.valueOf(minutaString);
+                        minutaInt1=minutaInt-15;
 
                         for (int i=0;i<30;i++) {
-                            if(minute >59){
+                            if(minutaInt1 >59){
                                 godzina+=1;
-                                minute=0;
-                            }else if(minute<0){
+                                minutaInt1=0;
+                            }else if(minutaInt1<0){
                                 godzina-=1;
-                                minute+=60;
+                                minutaInt1+=60;
 
                             }
-                            if (minute>=0 && minute<10){
-                                Minuta="0"+minute;
+                            if (minutaInt1>=0 && minutaInt1<10){
+                                minutaString="0"+minutaInt1;
                             }else{
-                                Minuta=String.valueOf(minute);
+                                minutaString=String.valueOf(minutaInt1);
                             }
-                            wybranaGodzina=godzina+":"+Minuta;
+                            wybranaGodzina=godzina+":"+minutaString;
                             Log.d(TAG,"Lala: "+wybranaGodzina);
-                            wybranaGodzina=godzina+":"+minute;
+                            wybranaGodzina=godzina+":"+minutaInt1;
 
 
                             firebaseFirestore.collection("Stoliknr"+i).whereEqualTo("Data", wybranaData).whereEqualTo("Godzina", wybranaGodzina).get()
