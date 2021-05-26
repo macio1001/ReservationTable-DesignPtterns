@@ -260,7 +260,7 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                                     Log.d(TAG, e.toString());
                                 }
                             });
-                            minute+=1;
+                            minutaInt1+=1;
                         }
                 },godzina,minuta,true);
                 timePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.GRAY));
