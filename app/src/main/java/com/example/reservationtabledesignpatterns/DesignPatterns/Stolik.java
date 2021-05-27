@@ -32,4 +32,28 @@ public class Stolik {
     public int getNumer() {
         return this.numer;
     }
+
+    public void wolne(){
+
+    }
+
+    public void zajete(){
+
+    }
+
+    public void niedostepne(){
+
+    }
+
+    public void stanPoczatkowyStolikow(){
+
+    }
+
+    public void widoczny(){
+
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+
+    }
 }

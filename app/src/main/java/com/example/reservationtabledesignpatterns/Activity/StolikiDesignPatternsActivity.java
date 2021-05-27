@@ -35,7 +35,7 @@ import static com.example.reservationtabledesignpatterns.R.*;
 public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
     private static final String TAG="StolikiActivity";
-    StolikDekorator imageStolikPierwszy,imageStolikDrugi,imageStolikTrzeci,imageStolikCzwarty,imageStolikPiaty,imageStolikSzosty;
+    Stolik imageStolikPierwszy,imageStolikDrugi,imageStolikTrzeci,imageStolikCzwarty,imageStolikPiaty,imageStolikSzosty;
     Button buttonDalej;
 
     Stolik stolik;
@@ -50,7 +50,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.stolikidesignpatterns);
 
-        imageStolikPierwszy= new StolikDekorator(new Stolik(1), findViewById(id.stolik1));
+        Stolik imageStolikPierwszy= new StolikDekorator(new Stolik(1), findViewById(id.stolik1));
         imageStolikDrugi= new StolikDekorator(new Stolik(2), findViewById(id.stolik2));
         imageStolikTrzeci= new StolikDekorator(new Stolik(1), findViewById(id.stolik3));
         imageStolikCzwarty= new StolikDekorator(new Stolik(1), findViewById(id.stolik4));
