@@ -50,7 +50,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.stolikidesignpatterns);
 
-        Stolik imageStolikPierwszy= new StolikDekorator(new Stolik(1), findViewById(id.stolik1));
+        imageStolikPierwszy= new StolikDekorator(new Stolik(1), findViewById(id.stolik1));
         imageStolikDrugi= new StolikDekorator(new Stolik(2), findViewById(id.stolik2));
         imageStolikTrzeci= new StolikDekorator(new Stolik(1), findViewById(id.stolik3));
         imageStolikCzwarty= new StolikDekorator(new Stolik(1), findViewById(id.stolik4));
