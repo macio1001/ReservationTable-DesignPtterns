@@ -43,6 +43,7 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
 
         calendarKalendarzUzytkownik=findViewById(R.id.kalendarzUzytkownik);
         recyclerviewKalenadarzUzytkownik=(RecyclerView) findViewById(R.id.historiaUserList);
+
         historiaUzytkownikList=new ArrayList<>();
         historiaUzytkownikDesignPatternsAdapter=new HistoriaUzytkownikDesignPatternsAdapter(this,historiaUzytkownikList);
         recyclerviewKalenadarzUzytkownik.setHasFixedSize(true);
@@ -61,7 +62,7 @@ public class HistoriaUzytkownikDesignPatternsActivity extends AppCompatActivity 
 
                 String data=dzien+" "+nazwaMesiaca+" "+rok;
                 for(int i=0;i<=6;i++) {
-                    firebaseFirestore.collection("Stoliknr"+i).whereEqualTo("Data", data).whereEqualTo("Email", email).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    firebaseFirestore.collection("Stoliknr"+ i).whereEqualTo("Data", data).whereEqualTo("Email", email).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                             if (e != null) {
