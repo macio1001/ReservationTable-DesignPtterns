@@ -141,9 +141,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                                 String documentId=rezerwacjaDesignPatterns.getDocumentId();
 
                                 if(documentId!=null){
-                                    if(documentId!=null){
                                         imageStolikTrzeci.zajete();
-                                    }
                                 }
                             }
                         }
