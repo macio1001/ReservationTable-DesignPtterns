@@ -41,6 +41,7 @@ public class RezerwacjaInfoDesignPatternsActivity extends AppCompatActivity {
         textTelefonInfo=findViewById(R.id.telefonInfoTextView);
         textStolikInfo=findViewById(R.id.stolikInfoTextView);
         textIloscInfo=findViewById(R.id.iloscInfoTextView);
+        imageLogoInfo=findViewById(R.id.logoinfoimageview);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseStorage=FirebaseStorage.getInstance();

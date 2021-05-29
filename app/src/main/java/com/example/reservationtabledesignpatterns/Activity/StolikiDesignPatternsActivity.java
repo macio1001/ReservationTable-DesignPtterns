@@ -4,18 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.reservationtabledesignpatterns.DesignPatterns.Singleton;
 import com.example.reservationtabledesignpatterns.DesignPatterns.StolikDekorator;
-import com.example.reservationtabledesignpatterns.DesignPatterns.StolikWidok;
-import com.example.reservationtabledesignpatterns.R;
 import com.example.reservationtabledesignpatterns.RezerwacjaDesignPatterns;
 import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,8 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.reservationtabledesignpatterns.R.*;
 
