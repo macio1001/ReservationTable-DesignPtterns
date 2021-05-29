@@ -1,13 +1,8 @@
 package com.example.reservationtabledesignpatterns.DesignPatterns;
 
 import android.graphics.Color;
-import android.media.Image;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StolikDekorator extends Stolik {
     ImageView image;

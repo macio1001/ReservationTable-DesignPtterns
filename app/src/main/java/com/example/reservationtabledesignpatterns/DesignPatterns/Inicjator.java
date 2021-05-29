@@ -2,8 +2,6 @@ package com.example.reservationtabledesignpatterns.DesignPatterns;
 
 import android.util.Log;
 
-import com.example.reservationtabledesignpatterns.DesignPatterns.Memento;
-
 public class Inicjator {
     private Boolean status;
 

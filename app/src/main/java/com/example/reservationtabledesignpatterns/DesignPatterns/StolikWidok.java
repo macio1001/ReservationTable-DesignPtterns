@@ -4,9 +4,6 @@ import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import com.example.reservationtabledesignpatterns.DesignPatterns.Dozorca;
-import com.example.reservationtabledesignpatterns.DesignPatterns.Inicjator;
-import com.example.reservationtabledesignpatterns.DesignPatterns.Stolik;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
