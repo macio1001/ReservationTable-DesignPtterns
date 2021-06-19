@@ -55,13 +55,13 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
 
         this.firebaseFirestore=FirebaseFirestore.getInstance();
 
-        String wybranaData=singleton.pokazdaterezerwacji();
-        String wybranaGodzina=singleton.pokazgodzinerezerwacji();
-        int ilosc=singleton.pokazilosc();
-        Boolean wylaczStolikPierwszy=singleton.pokazwylaczStolik1();
-        Boolean wylaczStolikDrugi=singleton.pokazwylaczStolik2();
-        Boolean wylaczStolikCzwarty=singleton.pokazwylaczStolik4();
-        Boolean wylaczStolikPiaty=singleton.pokazwylaczStolik5();
+        String wybranaData=singleton.pokazDateRezerwacji();
+        String wybranaGodzina=singleton.pokazGodzineRezerwacji();
+        int ilosc=singleton.pokazIlosc();
+        Boolean wylaczStolikPierwszy=singleton.pokazWylaczStolik1();
+        Boolean wylaczStolikDrugi=singleton.pokazWylaczStolik2();
+        Boolean wylaczStolikCzwarty=singleton.pokazWylaczStolik4();
+        Boolean wylaczStolikPiaty=singleton.pokazWylaczStolik5();
 
 
         imageStolikPierwszy.stanPoczatkowyStolikow();
@@ -71,12 +71,12 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         imageStolikPiaty.stanPoczatkowyStolikow();
         imageStolikSzosty.stanPoczatkowyStolikow();
 
-        wylaczonystolik1();
-        wylaczonystolik2();
-        wylaczonystolik3();
-        wylaczonystolik4();
-        wylaczonystolik5();
-        wylaczonystolik6();
+        wylaczonyStolik1();
+        wylaczonyStolik2();
+        wylaczonyStolik3();
+        wylaczonyStolik4();
+        wylaczonyStolik5();
+        wylaczonyStolik6();
 
 
         if(ilosc==1 || ilosc==2){
@@ -286,7 +286,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                 if(stolik==null){
                     Toast.makeText(StolikiDesignPatternsActivity.this,"Nie wybrałes żadnego stolika!",Toast.LENGTH_SHORT).show();
                 }else {
-                    singleton.przekazsttolik(stolik.getNumer());
+                    singleton.przekazSttolik(stolik.getNumer());
                     Intent intent = new Intent(StolikiDesignPatternsActivity.this, DaneOsoboweDesignPatternsActivity.class);
                     startActivity(intent);
                 }
@@ -294,7 +294,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
         });
     }
 
-    private void wylaczonystolik1() {
+    private void wylaczonyStolik1() {
         firebaseFirestore.collection("Stoliknr1").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -327,7 +327,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void wylaczonystolik2() {
+    private void wylaczonyStolik2() {
         firebaseFirestore.collection("Stoliknr2").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -360,7 +360,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void wylaczonystolik3() {
+    private void wylaczonyStolik3() {
         firebaseFirestore.collection("Stoliknr3").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -393,7 +393,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void wylaczonystolik4() {
+    private void wylaczonyStolik4() {
         firebaseFirestore.collection("Stoliknr4").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -426,7 +426,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void wylaczonystolik5() {
+    private void wylaczonyStolik5() {
         firebaseFirestore.collection("Stoliknr5").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -459,7 +459,7 @@ public class StolikiDesignPatternsActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void wylaczonystolik6(){
+    private void wylaczonyStolik6(){
         firebaseFirestore.collection("Stoliknr6").document("Status").get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

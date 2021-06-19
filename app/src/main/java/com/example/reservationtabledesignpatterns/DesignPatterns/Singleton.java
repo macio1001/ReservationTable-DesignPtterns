@@ -2,8 +2,8 @@ package com.example.reservationtabledesignpatterns.DesignPatterns;
 
 public class Singleton {
 
-    private String wybranadata;
-    private String wybranagodzina;
+    private String wybranaData;
+    private String wybranaGodzina;
     private String email;
     private int ilosc;
     private int stolik;
@@ -20,20 +20,20 @@ public class Singleton {
     }
 
 
-    public String pokazdaterezerwacji(){
-        return wybranadata;
+    public String pokazDateRezerwacji(){
+        return wybranaData;
     }
 
-    public void przekazdaterezerwacji(String wybranadata){
-        this.wybranadata=wybranadata;
+    public void przekazDateRezerwacji(String wybranaData){
+        this.wybranaData =wybranaData;
     }
 
-    public String pokazgodzinerezerwacji(){
-        return wybranagodzina;
+    public String pokazGodzineRezerwacji(){
+        return wybranaGodzina;
     }
 
-    public void przekazgodzinerezerwacji(String wybranagodzina) {
-        this.wybranagodzina = wybranagodzina;
+    public void przekazGodzineRezerwacji(String wybranaGodzina) {
+        this.wybranaGodzina = wybranaGodzina;
     }
 
     public String pokazEmail(){
@@ -44,52 +44,52 @@ public class Singleton {
         this.email=email;
     }
 
-    public int pokazilosc(){
+    public int pokazIlosc(){
         return ilosc;
     }
 
 
-    public void przekazilosc(int ilosc){
+    public void przekazIlosc(int ilosc){
         this.ilosc=ilosc;
     }
 
-    public int pokazstolik(){
+    public int pokazStolik(){
         return stolik;
     }
 
-    public void przekazsttolik(int stolik){
+    public void przekazSttolik(int stolik){
         this.stolik=stolik;
     }
 
-    public Boolean pokazwylaczStolik1(){
+    public Boolean pokazWylaczStolik1(){
         return wylaczStolikPierwszy;
     }
 
-    public void przekazwylaczStolik1(Boolean wylaczStolikPierwszy){
+    public void przekazWylaczStolik1(Boolean wylaczStolikPierwszy){
         this.wylaczStolikPierwszy=wylaczStolikPierwszy;
     }
 
-    public Boolean pokazwylaczStolik2(){
+    public Boolean pokazWylaczStolik2(){
         return wylaczStolikDrugi;
     }
 
-    public void przekazwylaczStolik2(Boolean wylaczStolikDrugi){
+    public void przekazWylaczStolik2(Boolean wylaczStolikDrugi){
         this.wylaczStolikDrugi=wylaczStolikDrugi;
     }
 
-    public Boolean pokazwylaczStolik4(){
+    public Boolean pokazWylaczStolik4(){
         return wylaczStolikCzwarty;
     }
 
-    public void przekazwylaczStolik4(Boolean wylaczStolikCzwarty){
+    public void przekazWylaczStolik4(Boolean wylaczStolikCzwarty){
         this.wylaczStolikCzwarty=wylaczStolikCzwarty;
     }
 
-    public Boolean pokazwylaczStolik5(){
+    public Boolean pokazWylaczStolik5(){
         return wylaczStolikPiaty;
     }
 
-    public void przekazwylaczStolik5(Boolean wylaczStolikPiaty){
+    public void przekazWylaczStolik5(Boolean wylaczStolikPiaty){
         this.wylaczStolikPiaty=wylaczStolikPiaty;
     }
 }

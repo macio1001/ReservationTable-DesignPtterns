@@ -72,11 +72,11 @@ public class DaneOsoboweDesignPatternsActivity extends AppCompatActivity {
         checkZapiszwGalerii= findViewById(R.id.dowloadtogallery);
         imageKodQR = findViewById(R.id.imageView8);
 
-        String wybranaData = singleton.pokazdaterezerwacji();
-        String wybranaGodzina = singleton.pokazgodzinerezerwacji();
+        String wybranaData = singleton.pokazDateRezerwacji();
+        String wybranaGodzina = singleton.pokazGodzineRezerwacji();
         String emailUzytkownika = singleton.pokazEmail();
-        int wybranyStolik = singleton.pokazstolik();
-        int wybranaIloscOsob = singleton.pokazilosc();
+        int wybranyStolik = singleton.pokazStolik();
+        int wybranaIloscOsob = singleton.pokazIlosc();
 
         stolik = String.valueOf(wybranyStolik);
         ilosc = String.valueOf(wybranaIloscOsob);

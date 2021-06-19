@@ -342,13 +342,13 @@ public class RezerwujDesignPatternsActivity extends AppCompatActivity {
                 } else if (ilosc == 0) {
                     Toast.makeText(RezerwujDesignPatternsActivity.this, "Nie dokonałes wyboru ilosci osob!!", Toast.LENGTH_SHORT).show();
                 }else {
-                    singleton.przekazdaterezerwacji(wybranaData);
-                    singleton.przekazgodzinerezerwacji(wybranaGodzina);
-                    singleton.przekazilosc(ilosc);
-                    singleton.przekazwylaczStolik1(wylaczStolikPierwszy);
-                    singleton.przekazwylaczStolik2(wylaczStolikDrugi);
-                    singleton.przekazwylaczStolik4(wylaczStolikCzwarty);
-                    singleton.przekazwylaczStolik5(wylaczStolikPiaty);
+                    singleton.przekazDateRezerwacji(wybranaData);
+                    singleton.przekazGodzineRezerwacji(wybranaGodzina);
+                    singleton.przekazIlosc(ilosc);
+                    singleton.przekazWylaczStolik1(wylaczStolikPierwszy);
+                    singleton.przekazWylaczStolik2(wylaczStolikDrugi);
+                    singleton.przekazWylaczStolik4(wylaczStolikCzwarty);
+                    singleton.przekazWylaczStolik5(wylaczStolikPiaty);
                     Intent intent = new Intent(RezerwujDesignPatternsActivity.this, StolikiDesignPatternsActivity.class);
                     startActivity(intent);
                 }
